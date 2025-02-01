@@ -1,0 +1,52 @@
+On lauch default db is created in Memory (which is sort of Heap). 
+
+
+no id column (you can either create one or not)
+max number of rows is 256 (by default) or less
+max number of columns is 8 (by default) or less
+supported datatypes are following
+you can pass nulls as values
+
+Parser is case (and space) agnostic for SQL keywords, so:
+"seLecT * fROm cars;"
+and 
+"         select   * FROM cars;"
+will be treated equally,
+however table name is case sensitive.
+
+
+Upon adding row to column - validation takes place for type and name
+Trying to add row for non existing column will fail.
+
+
+or make id default? 
+
+
+upon adding value for column - java tries to box the value (that is '33123' can be casted
+to string, but "skadjfk" can not be cast to integer). In fact boxing is defined by Java 
+entirely.
+
+
+this will work 
+"  sELeCt CustomerName, City FROM Customers;"
+
+
+
+Parser implements decision tree pattern.
+Memory containing is Singleton.
+Hierarchy is this (-> stands for owns)
+ Memory -> Databases (as )-> Tables -> Columns -> Rows.
+I will not go much into details why specific collection has been used in each case,
+but worth noting: 
+
+
+
+Note table is created in current DB by default, or in one which connected now.
+Values are boxed into columns depending on type, however trying to box "Sun" into integer 
+column will fail for obvious reasons.
+
+
+THE sql parsing problem.
+The logging problem
+
+
