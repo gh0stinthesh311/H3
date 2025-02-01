@@ -1,6 +1,7 @@
 package io.github.soydivision.constants;
 
 public enum SQLKeywords {
+    //to do add all keywords
     select("SELECT"),
     insert("INSERT"),
     update("UPDATE"),

@@ -4,7 +4,7 @@ public interface ParsingSQL {
 
     void parse(String sql);
 
-    String[] normalize(String sql);
+    String normalize(String sql);
 }
 
 
