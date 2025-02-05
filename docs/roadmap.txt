@@ -8,6 +8,8 @@ move sql keywords to enum and get them by key or name
 
 
 
+add regex holding class - to keep all regex in one place
+
 *****
 logger SLF4j + Logback 
 

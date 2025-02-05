@@ -6,9 +6,8 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 public class DDLtest {
-    String TABLE_NAME = "TERMINATORS";
+    //    String TABLE_NAME = "TERMINATORS";
     String CREATE_TABLE_SQL = "     crEatE tAblE  users (id INT PRIMARY KEY, name VARCHAR(255),   age    int); ";
-
 
     @Test
     public void createTableTest() {
