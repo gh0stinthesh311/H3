@@ -1,6 +1,8 @@
 package io.github.soydivision.domain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Database {
@@ -43,5 +45,13 @@ public class Database {
 
     public int getNumberOfTables() {
         return this.tables.size();
+    }
+
+    public List getTablesList() {
+        return new ArrayList(this.tables.entrySet());
+    }
+
+    public Table getTableByName(String name) {
+        return tables.get(name);
     }
 }

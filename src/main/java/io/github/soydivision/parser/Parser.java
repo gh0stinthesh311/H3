@@ -26,7 +26,7 @@ public class Parser implements ParsingSQL {
     @Override
     public void parse(String SQLStatement) {
         // Add normalizer here.
-        System.out.println("Source statement: " + SQLStatement);
+//        System.out.println("Source statement: " + SQLStatement);
         String statementNormalized = normalize(SQLStatement);
         String[] SQLstatementAsArray = statementNormalized.split(" ");
         if (SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.select.getValue())) {
@@ -54,7 +54,7 @@ public class Parser implements ParsingSQL {
         }
     }
 
-    @Override
+    //    @Override
     public String normalize(String sql) {
         String[] trimmedSQL = sql.trim().replaceAll(" +", " ").split(" ");
         String[] keyWords = getSQLKeyWords();
@@ -63,7 +63,7 @@ public class Parser implements ParsingSQL {
         for (int i = 0; i < trimmedSQL.length; i++) {
             for (int j = 0; j < keyWords.length; j++) {
                 if (trimmedSQL[i].toUpperCase().equals(keyWords[j])) {
-                    System.out.println("SQL Key word found in query: " + trimmedSQL[i]);
+//                    System.out.println("SQL Key word found in query: " + trimmedSQL[i]);
                     trimmedSQL[i] = keyWords[j];
                 }
             }

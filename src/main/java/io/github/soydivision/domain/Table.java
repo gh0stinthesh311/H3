@@ -1,11 +1,7 @@
 package io.github.soydivision.domain;
 
-import io.github.soydivision.custom_classes.LimitedArrayList;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Table {
     String name;

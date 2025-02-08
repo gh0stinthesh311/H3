@@ -1,0 +1,159 @@
+If you want to test **column definitions** for creating tables in your SQL database, here are some sample SQL statements with different types of column definitions. These will allow you to test various data types, constraints, and table creation concepts.
+
+### 1. **Basic Table Creation with Simple Columns**
+
+```sql
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Age INT,
+    HireDate DATE
+);
+```
+
+### 2. **Table with Various Data Types**
+
+```sql
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Price DECIMAL(10, 2),  -- Two decimal places for price
+    StockQuantity INT,
+    ReleaseDate DATE,
+    IsAvailable BOOLEAN
+);
+```
+
+### 3. **Table with Constraints**
+
+```sql
+CREATE TABLE Orders (
+    OrderID INT PRIMARY KEY,
+    CustomerID INT NOT NULL,
+    OrderDate DATE DEFAULT CURRENT_DATE,  -- Default value for OrderDate
+    TotalAmount DECIMAL(10, 2) CHECK (TotalAmount >= 0),  -- Check constraint for positive total
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)  -- Foreign key constraint
+);
+```
+
+### 4. **Table with Auto Incrementing Columns (MySQL Syntax)**
+
+```sql
+CREATE TABLE Users (
+    UserID INT AUTO_INCREMENT PRIMARY KEY,
+    Username VARCHAR(50) NOT NULL UNIQUE,
+    Password VARCHAR(100) NOT NULL,
+    DateOfBirth DATE
+);
+```
+
+In **MySQL**, the `AUTO_INCREMENT` keyword allows the `UserID` column to automatically generate a new, unique ID when a new row is inserted.
+
+### 5. **Table with Multiple Column Types (Date, Time, and Timestamp)**
+
+```sql
+CREATE TABLE Meetings (
+    MeetingID INT PRIMARY KEY,
+    Subject VARCHAR(100),
+    StartTime DATETIME,  -- Combined Date and Time
+    EndTime DATETIME,
+    Location VARCHAR(200),
+    IsCancelled BOOLEAN DEFAULT FALSE,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Automatically set timestamp on creation
+);
+```
+
+### 6. **Table with Nullable Columns and Default Values**
+
+```sql
+CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    FullName VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) UNIQUE,
+    Phone VARCHAR(20) DEFAULT 'Not Provided',
+    EnrollmentDate DATE DEFAULT CURRENT_DATE,
+    GradeLevel INT DEFAULT 1,  -- Default value for grade level
+    GraduationDate DATE NULL  -- Nullable column for graduation date
+);
+```
+
+### 7. **Table with Composite Primary Key**
+
+```sql
+CREATE TABLE CourseEnrollments (
+    StudentID INT,
+    CourseID INT,
+    EnrollmentDate DATE,
+    PRIMARY KEY (StudentID, CourseID),  -- Composite Primary Key
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+```
+
+### 8. **Table with Foreign Key Constraints**
+
+```sql
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    DepartmentID INT,
+    Name VARCHAR(100),
+    HireDate DATE,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)  -- Foreign key reference
+);
+```
+
+### 9. **Table with ENUM Data Type (MySQL/PostgreSQL)**
+
+```sql
+CREATE TABLE Products (
+    ProductID INT PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Category ENUM('Electronics', 'Clothing', 'Home', 'Books'),
+    Price DECIMAL(10, 2),
+    InStock BOOLEAN DEFAULT TRUE
+);
+```
+
+In **MySQL**, `ENUM` allows for a column to take one of a limited set of values.
+
+### 10. **Table with a Large Text Column (BLOB or TEXT)**
+
+```sql
+CREATE TABLE BlogPosts (
+    PostID INT PRIMARY KEY,
+    Title VARCHAR(255),
+    Content TEXT,  -- Large text column
+    AuthorID INT,
+    PublishedDate DATETIME,
+    FOREIGN KEY (AuthorID) REFERENCES Authors(AuthorID)
+);
+```
+
+### 11. **Table with Unique Constraints on Multiple Columns**
+
+```sql
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY,
+    Email VARCHAR(100) NOT NULL,
+    PhoneNumber VARCHAR(15),
+    UNIQUE (Email, PhoneNumber)  -- Composite Unique constraint
+);
+```
+
+### 12. **Table with Array (PostgreSQL)**
+
+```sql
+CREATE TABLE Products (
+    ProductID SERIAL PRIMARY KEY,
+    ProductName VARCHAR(100),
+    Tags TEXT[],  -- Array type column for storing multiple tags
+    Price DECIMAL(10, 2)
+);
+```
+
+In **PostgreSQL**, you can use arrays for storing multiple values in a single column.
+
+---
+
+These examples cover a wide range of column definition types, constraints, and data types. You can try modifying them, adding more complex constraints, or mixing different column types to explore SQL table creation more comprehensively. Let me know if you need more specific examples or further clarification!

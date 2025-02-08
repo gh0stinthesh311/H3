@@ -17,4 +17,13 @@ public enum SupportedDataTypes {
     public Class<?> getAssociatedClass() {
         return associatedClass;
     }
+
+    public static String[] getSupportedDataTypes() {
+        String[] supportedDataTypes = new String[SupportedDataTypes.values().length];
+        int i = 0;
+        for (SupportedDataTypes supportedDataType : SupportedDataTypes.values()) {
+            supportedDataTypes[i++] = supportedDataType.name().toString();
+        }
+        return supportedDataTypes;
+    }
 }

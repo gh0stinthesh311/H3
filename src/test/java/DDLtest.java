@@ -8,13 +8,21 @@ import org.junit.Test;
 public class DDLtest {
     //    String TABLE_NAME = "TERMINATORS";
     String CREATE_TABLE_SQL = "     crEatE tAblE  users (id INT PRIMARY KEY, name VARCHAR(255),   age    int); ";
+    String CREATE_TABLE_SQL_2 = "CREATE TABLE Users (\n" +
+            "    UserID INT AUTO_INCREMENT PRIMARY KEY,\n" +
+            "    Username VARCHAR(50) NOT NULL UNIQUE,\n" +
+            "    Password VARCHAR(100) NOT NULL,\n" +
+            "    DateOfBirth DATE\n" +
+            ");\n";
 
     @Test
     public void createTableTest() {
-
         Memory memory = Memory.getInstance();
         Parser parser = new Parser();
-        parser.parse(CREATE_TABLE_SQL);
+        parser.parse(CREATE_TABLE_SQL_2);
+        // System.out.println(Memory.getInstance().getCurrentDatabase().getTableByName("Users").getName());
+        // write assertion properly
+
     }
 
 //    @Test
