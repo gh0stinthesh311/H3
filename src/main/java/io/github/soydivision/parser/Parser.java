@@ -3,9 +3,7 @@ package io.github.soydivision.parser;
 import io.github.soydivision.constants.SQLKeywords;
 import io.github.soydivision.handlers.*;
 
-import java.util.Arrays;
-
-import static io.github.soydivision.constants.SQLKeywords.getSQLKeyWords;
+import static io.github.soydivision.utils.StringUtils.normalize;
 
 public class Parser implements ParsingSQL {
     private final DataDefinitionLanguageMaster dataDefinitionLanguageMaster;
@@ -22,11 +20,8 @@ public class Parser implements ParsingSQL {
         this.dataControlLanguageMaster = new DataControlLanguageMaster();
     }
 
-    // make static methods , or parser singleton
     @Override
     public void parse(String SQLStatement) {
-        // Add normalizer here.
-//        System.out.println("Source statement: " + SQLStatement);
         String statementNormalized = normalize(SQLStatement);
         String[] SQLstatementAsArray = statementNormalized.split(" ");
         if (SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.select.getValue())) {
@@ -53,39 +48,4 @@ public class Parser implements ParsingSQL {
             this.dataControlLanguageMaster.execute(statementNormalized);
         }
     }
-
-    //    @Override
-    public String normalize(String sql) {
-        String[] trimmedSQL = sql.trim().replaceAll(" +", " ").split(" ");
-        String[] keyWords = getSQLKeyWords();
-        // This cycle replaces all SQL keywords found SQLKeywords.class with upper case characters.
-        // Example: seLEct -> SELECT
-        for (int i = 0; i < trimmedSQL.length; i++) {
-            for (int j = 0; j < keyWords.length; j++) {
-                if (trimmedSQL[i].toUpperCase().equals(keyWords[j])) {
-//                    System.out.println("SQL Key word found in query: " + trimmedSQL[i]);
-                    trimmedSQL[i] = keyWords[j];
-                }
-            }
-        }
-        // Following cycle builds String from Array of Strings (String[]) but with all keywords normalized
-        // (case capitalized).
-        // Notice first element is appended by default and subsequent elements appended with initial space.
-        // We need to have space between them.
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(trimmedSQL[0]);
-        for (int i = 1; i < trimmedSQL.length; i++) {
-            stringBuilder.append(" ");
-            stringBuilder.append(trimmedSQL[i]);
-        }
-        String trimmedSQLString = stringBuilder.toString();
-
-
-        // Also every key word should be casted to upper case, all key words
-        // should be taken from constants
-//        Arrays.stream(sql.trim().replaceAll(" +", " ").split(" ")).
-//        return normalizedSQLQuery;
-        return trimmedSQLString;
-    }
-    // validate SQL
 }

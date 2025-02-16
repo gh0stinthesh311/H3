@@ -41,7 +41,11 @@ build/
 .idea/
 *.iml
 *.iws
-
+# Logger
+logs/
 # Maven
 log/
 target/
+
+*.ods
+*.ods#

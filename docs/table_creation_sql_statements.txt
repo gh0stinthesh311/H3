@@ -4,9 +4,9 @@ If you want to test **column definitions** for creating tables in your SQL datab
 
 ```sql
 CREATE TABLE Employees (
-    EmployeeID INT PRIMARY KEY,
-    FirstName VARCHAR(50),
-    LastName VARCHAR(50),
+    EmployeeID INT PRIMARY KEY,  -- Column Definition
+    FirstName VARCHAR(50) NOT NULL,  -- Column Definition
+    LastName VARCHAR(50),  -- Column Definition
     Age INT,
     HireDate DATE
 );

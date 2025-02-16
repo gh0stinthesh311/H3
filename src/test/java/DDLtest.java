@@ -1,28 +1,45 @@
 import io.github.soydivision.memory.Memory;
 import io.github.soydivision.parser.Parser;
-import io.github.soydivision.parser.ParsingSQL;
-import org.junit.Assert;
-import org.junit.FixMethodOrder;
+import io.github.soydivision.utils.LogUtil;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class DDLtest {
-    //    String TABLE_NAME = "TERMINATORS";
-    String CREATE_TABLE_SQL = "     crEatE tAblE  users (id INT PRIMARY KEY, name VARCHAR(255),   age    int); ";
-    String CREATE_TABLE_SQL_2 = "CREATE TABLE Users (\n" +
-            "    UserID INT AUTO_INCREMENT PRIMARY KEY,\n" +
-            "    Username VARCHAR(50) NOT NULL UNIQUE,\n" +
-            "    Password VARCHAR(100) NOT NULL,\n" +
-            "    DateOfBirth DATE\n" +
+    String TABLE_NAME = "Employees";
+    String CREATE_TABLE_SQL = "CREATE TABLE Employees (\n" +
+            "    EmployeeID INT PRIMARY KEY, \n" +
+            "    FirstName VARCHAR(50) NOT NULL, \n" +
+            "    LastName VARCHAR(50), \n" +
+            "    Age INT(),\n" +
+            "    HireDate DATE\n" +
+            ");\n";
+    String CREATE_TABLE_SQL_UNSUPPORTED_TYPE = "CREATE TABLE Employees (\n" +
+            "    EmployeeID INT PRIMARY KEY,\n" +
+            "    FirstName VARCHAR(50) NOT NULL,\n" +
+            "    LastName VARCHAR(50),\n" +
+            "    Age INT,\n" +
+            "    Salary MONEY,\n" +
+            "    HireDate DATE\n" +
             ");\n";
 
-    @Test
-    public void createTableTest() {
-        Memory memory = Memory.getInstance();
-        Parser parser = new Parser();
-        parser.parse(CREATE_TABLE_SQL_2);
-        // System.out.println(Memory.getInstance().getCurrentDatabase().getTableByName("Users").getName());
-        // write assertion properly
 
+//    @Test
+//    public void createTableTest() {
+//        LogUtil.info("Creating table test, using statement:" + CREATE_TABLE_SQL);
+//        Parser parser = new Parser();
+//        parser.parse(CREATE_TABLE_SQL);
+//        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TABLE_NAME).getName());
+//        assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(TABLE_NAME).getName(), TABLE_NAME);
+//    }
+
+    @Test
+    public void createTableTestUnSuppType() {
+        LogUtil.info("Creating table test, using statement:" + CREATE_TABLE_SQL_UNSUPPORTED_TYPE);
+        Parser parser = new Parser();
+        parser.parse(CREATE_TABLE_SQL_UNSUPPORTED_TYPE);
+        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TABLE_NAME).getName());
+        assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(TABLE_NAME).getName(), TABLE_NAME);
     }
 
 //    @Test
@@ -44,4 +61,6 @@ public class DDLtest {
 //        parser.parse(DROP_DB_SQL + DB_NAME);
 //        Assert.assertEquals(1, memory.getNumberOfDatabases());
 //    }
+
+
 }
