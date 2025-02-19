@@ -47,5 +47,5 @@ logs/
 log/
 target/
 
-*.ods
+
 *.ods#
