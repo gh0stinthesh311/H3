@@ -1,16 +1,8 @@
-import io.github.soydivision.constants.SupportedDataTypes;
 import io.github.soydivision.domain.Column;
-import io.github.soydivision.domain.ColumnMetadata;
 import io.github.soydivision.domain.Row;
-import io.github.soydivision.domain.Table;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-
-import static org.junit.Assert.assertNotNull;
 
 public class TableCreationTest {
 

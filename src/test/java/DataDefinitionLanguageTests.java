@@ -1,11 +1,10 @@
 import io.github.soydivision.memory.Memory;
 import io.github.soydivision.parser.Parser;
-import io.github.soydivision.utils.LogUtil;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class DDLtest {
+public class DataDefinitionLanguageTests {
     String TABLE_NAME = "Employees";
     String CREATE_TABLE_SQL = "CREATE TABLE Employees (\n" +
             "    EmployeeID INT PRIMARY KEY, \n" +
@@ -34,10 +33,11 @@ public class DDLtest {
 //    }
 
     @Test
-    public void createTableTestUnSuppType() {
-        LogUtil.info("Creating table test, using statement:" + CREATE_TABLE_SQL_UNSUPPORTED_TYPE);
+    public void test_01() {
+        // to do parser should log activity
+//        LogUtil.info("Creating table test, using statement:" + CREATE_TABLE_SQL_UNSUPPORTED_TYPE);
         Parser parser = new Parser();
-        parser.parse(CREATE_TABLE_SQL_UNSUPPORTED_TYPE);
+        parser.parse(TestQueryConstants.DDL.CREATE_TABLE_STATEMENT_WITH_SINGLE_LINE_COMMENTS);
         assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TABLE_NAME).getName());
         assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(TABLE_NAME).getName(), TABLE_NAME);
     }

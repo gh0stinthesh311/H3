@@ -23,27 +23,27 @@ public class Parser implements ParsingSQL {
     @Override
     public void parse(String SQLStatement) {
         String statementNormalized = normalize(SQLStatement);
-        String[] SQLstatementAsArray = statementNormalized.split(" ");
-        if (SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.select.getValue())) {
+        String[] SQL_StatementAsArray = statementNormalized.split(" ");
+        if (SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.select.getValue())) {
             this.dataQueryLanguageMaster.execute(statementNormalized);
-        } else if (SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.insert.getValue())
-                || SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.update.getValue())
-                || SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.delete.getValue())
+        } else if (SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.insert.getValue())
+                || SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.update.getValue())
+                || SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.delete.getValue())
         ) {
             this.dataManipulationLanguageMaster.execute(statementNormalized);
             //progress here
-        } else if (SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.create.getValue())
-                || SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.alter.getValue())
-                || SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.drop.getValue())
+        } else if (SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.create.getValue())
+                || SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.alter.getValue())
+                || SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.drop.getValue())
         ) {
             this.dataDefinitionLanguageMaster.execute(statementNormalized);
-        } else if (SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.begin.getValue())
-                || SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.commit.getValue())
-                || SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.rollback.getValue())
+        } else if (SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.begin.getValue())
+                || SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.commit.getValue())
+                || SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.rollback.getValue())
         ) {
             this.transactionControlLanguageMaster.execute(statementNormalized);
-        } else if (SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.grant.getValue())
-                || SQLstatementAsArray[0].toUpperCase().equals(SQLKeywords.revoke.getValue())
+        } else if (SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.grant.getValue())
+                || SQL_StatementAsArray[0].toUpperCase().equals(SQLKeywords.revoke.getValue())
         ) {
             this.dataControlLanguageMaster.execute(statementNormalized);
         }

@@ -9,21 +9,16 @@ public class StringUtils {
     }
 
     public static String normalize(String SQL) {
-        // remove newlines
-        // remove trailing spaces
-        // normalize key wordss
-        // remove spaces in column def data like ( UserId
-        // remove spaces from end like DATE )
-        // remove spaces after ","
-        String[] trimmedSQL = SQL.trim()
-                .replace("\n", "")
-                .replace("\r", "")
+        String[] trimmedSQL = SQL.trim() // Remove trailing spaces
+                .replaceAll("(/\\*(.|[\\r\\n])*?\\*/)|(--(.*|[\\r\\n]))\n", "") // Remove all sql comments
+                .replace("\n", "") // Remove newlines
+                .replace("\r", "") // Remove Carriage Return
+//                .replaceAll("--.*$", "")
                 .replaceAll("\\(\\s+", "(")  // Remove spaces after "("
                 .replaceAll("\\s+\\)", ")")  // Remove spaces before ")"
                 .replaceAll(",\\s+", ",")   // Remove spaces after ","
                 .replaceAll(" +", " ")      // Collapse multiple spaces
                 .split(" ");
-
 
         String[] keyWords = getSQLKeyWords();
         for (int i = 0; i < trimmedSQL.length; i++) {
@@ -41,8 +36,35 @@ public class StringUtils {
         }
         System.out.println("normalized statement:" + stringBuilder.toString());
         return stringBuilder.toString();
-
     }
 
+    public static String trim(String s) {
+        return s.trim();
+    }
+
+    public static String removeNewlines(String s) {
+        return s.replace("\n", "");
+    }
+
+    public static String removeCarriageReturn(String s) {
+        return s.replace("\r", "");
+    }
+
+    public static String removeAllSqlComments(String s) {
+        return s.replaceAll("(/\\*(.|[\\r\\n])*?\\*/)|(--(.*|[\\r\\n]))\n", "");
+    }
+
+    public static String removeParenthesesSpaces(String s) {
+        return s.replaceAll("\\(\\s+", "(")  // Remove spaces after "("
+                .replaceAll("\\s+\\)", ")");  // Remove spaces before ")"
+    }
+
+    public static String removeSpacesAfterComma(String s) {
+        return s.replaceAll(",\\s+", ",");  // Remove spaces after ","
+    }
+
+    public static String collapseMultiplespaces(String s) {
+        return s.replaceAll(" +", " ");
+    }
 
 }
