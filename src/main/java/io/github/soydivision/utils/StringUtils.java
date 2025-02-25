@@ -34,7 +34,8 @@ public class StringUtils {
             stringBuilder.append(" ");
             stringBuilder.append(trimmedSQL[i]);
         }
-        System.out.println("normalized statement:" + stringBuilder.toString());
+        LogUtil.info("Normalized statement: " + stringBuilder);
+//        System.out.println("normalized statement:" + );
         return stringBuilder.toString();
     }
 

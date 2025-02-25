@@ -3,12 +3,10 @@ package io.github.soydivision.handlers;
 import io.github.soydivision.constants.SQLKeywords;
 import io.github.soydivision.constants.SupportedDataTypes;
 import io.github.soydivision.constants.SysMessages;
-import io.github.soydivision.domain.Column;
 import io.github.soydivision.domain.Table;
 import io.github.soydivision.memory.Memory;
 import io.github.soydivision.utils.LogUtil;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,7 +16,9 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
     public void execute(String SQL) {
         String[] sqlArray = SQL.split(" ");
         if (sqlArray[0].equals(SQLKeywords.create.getValue()) && sqlArray[1].equalsIgnoreCase("TABLE")) {
-            Table table = new Table(sqlArray[2]);
+            LogUtil.info("Creating table: " + sqlArray[2]);
+            String tableName = sqlArray[2];
+            Table table = new Table(tableName);
             Memory.getInstance().getCurrentDatabase().addTable(table);
             createColumns(SQL, table);
         } else if (sqlArray[0].equalsIgnoreCase("DROP") && sqlArray[1].equalsIgnoreCase("TABLE")) {
@@ -32,7 +32,7 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
 
     public String extractColumnDefinitions(String SQL) {
         String columnDefinitions = SQL.substring(SQL.indexOf("(") + 1, SQL.lastIndexOf(")")).trim();
-        System.out.println("Extracted column definitions:" + columnDefinitions);
+        LogUtil.info("Extracted column definitions: " + columnDefinitions);
         return columnDefinitions;
     }
 
@@ -51,8 +51,9 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
     public void createColumns(String SQL, Table table) {
         String[] columnDefinitions = extractColumnDefinitions(SQL).split(",");
         for (int i = 0; i < columnDefinitions.length; i++) {
-//            table.addColumn(columnDefinitions[i]);
-            System.out.println("Parsing column definition:" + columnDefinitions[i]);
+//            table.addColumn(columnDefinitions[i]); to do
+//            System.out.println("Parsing column definition:" + columnDefinitions[i]);
+            LogUtil.info("Parsing column definition: " + columnDefinitions[i]);
             parseColumnDefinition(columnDefinitions[i]);
         }
     }

@@ -5,22 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DataDefinitionLanguageTests {
-    String TABLE_NAME = "Employees";
-    String CREATE_TABLE_SQL = "CREATE TABLE Employees (\n" +
-            "    EmployeeID INT PRIMARY KEY, \n" +
-            "    FirstName VARCHAR(50) NOT NULL, \n" +
-            "    LastName VARCHAR(50), \n" +
-            "    Age INT(),\n" +
-            "    HireDate DATE\n" +
-            ");\n";
-    String CREATE_TABLE_SQL_UNSUPPORTED_TYPE = "CREATE TABLE Employees (\n" +
-            "    EmployeeID INT PRIMARY KEY,\n" +
-            "    FirstName VARCHAR(50) NOT NULL,\n" +
-            "    LastName VARCHAR(50),\n" +
-            "    Age INT,\n" +
-            "    Salary MONEY,\n" +
-            "    HireDate DATE\n" +
-            ");\n";
+//    String TABLE_NAME = "Employees";
 
 
 //    @Test
@@ -34,12 +19,21 @@ public class DataDefinitionLanguageTests {
 
     @Test
     public void test_01() {
-        // to do parser should log activity
-//        LogUtil.info("Creating table test, using statement:" + CREATE_TABLE_SQL_UNSUPPORTED_TYPE);
         Parser parser = new Parser();
-        parser.parse(TestQueryConstants.DDL.CREATE_TABLE_STATEMENT_WITH_SINGLE_LINE_COMMENTS);
-        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TABLE_NAME).getName());
-        assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(TABLE_NAME).getName(), TABLE_NAME);
+        parser.parse(TestQueryConstants.DDL.CREATE_TABLE_01);
+        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TestQueryConstants.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
+        assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(TestQueryConstants.DDL.CREATE_TABLE_01_TABLE_NAME).getName(),
+                TestQueryConstants.DDL.CREATE_TABLE_01_TABLE_NAME);
+    }
+
+    @Test
+    public void test_02() {
+        Parser parser = new Parser();
+        parser.parse(TestQueryConstants.DDL.CREATE_TABLE_01);
+        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TestQueryConstants.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
+        parser.parse(TestQueryConstants.DDL.DROP_TABLE_01);
+        System.out.println(Memory.getInstance());
+        assertEquals(Memory.getInstance().getCurrentDatabase().getTablesList().size(), 0);
     }
 
 //    @Test

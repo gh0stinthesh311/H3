@@ -1,5 +1,7 @@
 package io.github.soydivision.domain;
 
+import io.github.soydivision.utils.LogUtil;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,10 +38,12 @@ public class Database {
     }
 
     public void addTable(Table table) {
+        LogUtil.info("Adding table: " + table.getName() + " to database " + this.getName());
         this.tables.put(table.getName(), table);
     }
 
     public void dropTable(String name) {
+        LogUtil.info("Dropping table: " + name + " from database " + this.getName());
         this.tables.remove(name);
     }
 
