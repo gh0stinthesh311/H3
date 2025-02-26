@@ -13,11 +13,11 @@ public class StringUtils {
                 .replaceAll("(/\\*(.|[\\r\\n])*?\\*/)|(--(.*|[\\r\\n]))\n", "") // Remove all sql comments
                 .replace("\n", "") // Remove newlines
                 .replace("\r", "") // Remove Carriage Return
-//                .replaceAll("--.*$", "")
                 .replaceAll("\\(\\s+", "(")  // Remove spaces after "("
                 .replaceAll("\\s+\\)", ")")  // Remove spaces before ")"
                 .replaceAll(",\\s+", ",")   // Remove spaces after ","
                 .replaceAll(" +", " ")      // Collapse multiple spaces
+                .replaceAll(";$", "") // remove ";" at the end
                 .split(" ");
 
         String[] keyWords = getSQLKeyWords();

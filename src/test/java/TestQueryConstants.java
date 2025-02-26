@@ -9,7 +9,7 @@ public class TestQueryConstants {
                 ");\n";
         public static String CREATE_TABLE_01_TABLE_NAME = "Employees";
 
-        public static String DROP_TABLE_01 = "DrOp TABLE Employees";
+        public static String DROP_TABLE_01 = "DrOp TABLE Employees;";
 
         public static String CREATE_TABLE_CONDITIONAL =
                 "CREATE TABLE IF NOT EXISTS books (" +
