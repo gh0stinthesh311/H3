@@ -18,7 +18,7 @@
     </appender>
 
     <!-- Logger for Specific Package -->
-    <logger name="io.github.soydivision" level="DEBUG"/>
+    <logger name="io.github.gh0stinthesh311" level="DEBUG"/>
 
     <!-- Root Logger -->
     <root level="INFO">

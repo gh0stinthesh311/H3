@@ -1,5 +1,5 @@
-import io.github.soydivision.domain.Column;
-import io.github.soydivision.domain.Row;
+import io.github.gh0stinthesh311.domain.Column;
+import io.github.gh0stinthesh311.domain.Row;
 import org.junit.Test;
 
 import java.util.HashMap;

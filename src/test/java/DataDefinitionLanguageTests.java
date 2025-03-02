@@ -1,5 +1,5 @@
-import io.github.soydivision.memory.Memory;
-import io.github.soydivision.parser.Parser;
+import io.github.gh0stinthesh311.memory.Memory;
+import io.github.gh0stinthesh311.parser.Parser;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
