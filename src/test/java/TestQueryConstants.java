@@ -1,11 +1,11 @@
 public class TestQueryConstants {
     public static class DDL {
         public static String CREATE_TABLE_01 = "CREATE TABLE Employees (\n" +
-                "    EmployeeID INT PRIMARY KEY, \n" +
+                "    EmployeeID InT PRIMARY KEY, \n" +
                 "    FirstName VARCHAR(50) NOT NULL, \n" +
-                "    LastName VARCHAR(50), \n" +
+                "    LastName VArCHaR(50), \n" +
                 "    Age INT(),\n" +
-                "    HireDate DATE\n" +
+                "    HireDate dAtE\n" +
                 ");\n";
         public static String CREATE_TABLE_01_TABLE_NAME = "Employees";
 

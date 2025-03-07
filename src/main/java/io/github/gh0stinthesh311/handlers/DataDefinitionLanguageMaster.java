@@ -16,7 +16,7 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
     public void execute(String SQL) {
         String[] sqlArray = SQL.split(" ");
         if (sqlArray[0].equals(SQLKeywords.create.getValue()) && sqlArray[1].equalsIgnoreCase("TABLE")) {
-            LogUtil.info("Creating table: " + sqlArray[2]);
+            LogUtil.info("Creating table " + sqlArray[2]);
             String tableName = sqlArray[2];
             Table table = new Table(tableName);
             Memory.getInstance().getCurrentDatabase().addTable(table);
@@ -50,15 +50,17 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
 
     public void createColumns(String SQL, Table table) {
         String[] columnDefinitions = extractColumnDefinitions(SQL).split(",");
-        for (int i = 0; i < columnDefinitions.length; i++) {
-//            table.addColumn(columnDefinitions[i]); to do
+        for (String columnDefinition : columnDefinitions) {
+//            table.addColumn(columnDefinitions[i]); //to do
 //            System.out.println("Parsing column definition:" + columnDefinitions[i]);
-            LogUtil.info("Parsing column definition: " + columnDefinitions[i]);
-            parseColumnDefinition(columnDefinitions[i]);
+//            System.out.println("Parsing column definition:" + columnDefinitions[i]);
+            LogUtil.info("Parsing column definition: " + columnDefinition);
+            String[] parsedColumnDefinition = parseAndReturnColumnDefinition(columnDefinition);
+            table.addColumn(parsedColumnDefinition[0], parsedColumnDefinition[1]);
         }
     }
 
-    public void parseColumnDefinition(String columnDefinition) {
+    public String[] parseAndReturnColumnDefinition(String columnDefinition) {
         String[] columnDefinitionTokens = columnDefinition.split(" ");
         // removes "(", ")" and everything in between, so that VARCHAR(188) -> VARCHAR
         String dataTypeParameterRemoved = columnDefinitionTokens[1].replaceAll("\\([^)]*\\)", "");
@@ -86,5 +88,7 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
         } else {
             LogUtil.warn(dataTypeParameterRemoved.toUpperCase() + " is not a supported data type.");
         }
+
+        return new String[]{columnDefinitionTokens[0], columnDefinitionTokens[1]};
     }
 }

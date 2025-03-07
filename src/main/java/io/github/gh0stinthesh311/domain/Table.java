@@ -1,5 +1,7 @@
 package io.github.gh0stinthesh311.domain;
 
+import io.github.gh0stinthesh311.utils.LogUtil;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -101,4 +103,11 @@ public class Table {
         return "Table: " + name + " \ncolumns = " + columns;
 
     }
+
+    public void addColumn(String columnName, String columnType) {
+        LogUtil.info("Adding column: " + columnName + " to table " + this.name + ", type: " + columnType);
+
+    }
+
+
 }

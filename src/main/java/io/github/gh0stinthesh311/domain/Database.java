@@ -38,7 +38,7 @@ public class Database {
     }
 
     public void addTable(Table table) {
-        LogUtil.info("Adding table: " + table.getName() + " to database " + this.getName());
+        LogUtil.info("Adding table " + table.getName() + " to database " + this.getName());
         this.tables.put(table.getName(), table);
     }
 
