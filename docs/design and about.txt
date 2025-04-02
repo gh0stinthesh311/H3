@@ -50,3 +50,9 @@ THE sql parsing problem.
 The logging problem
 
 
+
+How do you solve a problem of vArChar vs vARchar(50). They both need to be normalized.
+
+
+
+

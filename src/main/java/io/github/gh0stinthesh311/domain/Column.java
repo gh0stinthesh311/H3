@@ -8,12 +8,12 @@ import java.util.List;
 public class Column {
     String name;
     List<Row> rows = new LimitedArrayList<>();
-    Class<?> dataType;
-    boolean isPrimaryKey;
+    String dataType;
+//    boolean isPrimaryKey;
 
-    public Column(String name, SupportedDataTypes dataType) {
+    public Column(String name, String dataType) {
         this.name = name;
-        this.dataType = dataType.getAssociatedClass();
+//        this.dataType = SupportedDataTypes.valueOf(dataType).getAssociatedClass();
     }
 
     public void addRow(Row row) {
@@ -21,7 +21,6 @@ public class Column {
         // search column name among the row names and if one equal then try to box the value ot this.dataType
         // on fail throw exception
     }
-
 
     @Override
     public String toString() {

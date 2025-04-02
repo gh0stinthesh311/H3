@@ -7,7 +7,6 @@ import static org.junit.Assert.*;
 public class DataDefinitionLanguageTests {
 //    String TABLE_NAME = "Employees";
 
-
 //    @Test
 //    public void createTableTest() {
 //        LogUtil.info("Creating table test, using statement:" + CREATE_TABLE_SQL);

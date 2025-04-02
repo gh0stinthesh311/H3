@@ -21,10 +21,10 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
             Table table = new Table(tableName);
             Memory.getInstance().getCurrentDatabase().addTable(table);
             createColumns(SQL, table);
-        } else if (sqlArray[0].equalsIgnoreCase("DROP") && sqlArray[1].equalsIgnoreCase("TABLE")) {
+        } else if (sqlArray[0].equalsIgnoreCase(SQLKeywords.drop.getValue()) && sqlArray[1].equalsIgnoreCase("TABLE")) {
             Memory.getInstance().getCurrentDatabase().dropTable(sqlArray[2]);
         } else if (sqlArray[0].equalsIgnoreCase("CREATE") && sqlArray[1].equalsIgnoreCase("DATABASE")) {
-            Memory.getInstance().addDatabase(sqlArray[2]);
+            Memory.getInstance().addDatabase(sqlArray[2]); // to do replace with keywords
         } else if (sqlArray[0].equalsIgnoreCase("DROP") && sqlArray[1].equalsIgnoreCase("DATABASE")) {
             Memory.getInstance().dropDatabase(sqlArray[2]);
         }
@@ -51,9 +51,6 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
     public void createColumns(String SQL, Table table) {
         String[] columnDefinitions = extractColumnDefinitions(SQL).split(",");
         for (String columnDefinition : columnDefinitions) {
-//            table.addColumn(columnDefinitions[i]); //to do
-//            System.out.println("Parsing column definition:" + columnDefinitions[i]);
-//            System.out.println("Parsing column definition:" + columnDefinitions[i]);
             LogUtil.info("Parsing column definition: " + columnDefinition);
             String[] parsedColumnDefinition = parseAndReturnColumnDefinition(columnDefinition);
             table.addColumn(parsedColumnDefinition[0], parsedColumnDefinition[1]);
@@ -62,8 +59,10 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
 
     public String[] parseAndReturnColumnDefinition(String columnDefinition) {
         String[] columnDefinitionTokens = columnDefinition.split(" ");
-        // removes "(", ")" and everything in between, so that VARCHAR(188) -> VARCHAR
+        // to do - this should be made in normalize section
+        // removes "(", ")" and everything in between, so that VARCHAR(256) -> VARCHAR
         String dataTypeParameterRemoved = columnDefinitionTokens[1].replaceAll("\\([^)]*\\)", "");
+        System.out.println("dataTypeParameterRemoved:" + dataTypeParameterRemoved);
 //
 //        if (dataTypeParameterRemoved.toUpperCase().equals(SupportedDataTypes.INT.name())) {
 //            LogUtil.info(SupportedDataTypes.INT.name() + SysMessages.DATATYPE_FOUND.getMessage());
@@ -82,13 +81,11 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
         Set<String> supportedTypes = Arrays.stream(SupportedDataTypes.values())
                 .map(Enum::name)
                 .collect(Collectors.toSet());
-
         if (supportedTypes.contains(dataTypeParameterRemoved.toUpperCase())) {
             LogUtil.info(dataTypeParameterRemoved.toUpperCase() + SysMessages.DATATYPE_FOUND.getMessage());
         } else {
-            LogUtil.warn(dataTypeParameterRemoved.toUpperCase() + " is not a supported data type.");
+            LogUtil.warn(dataTypeParameterRemoved.toUpperCase() + SysMessages.DATATYPE_NOT_FOUND.getMessage());
         }
-
-        return new String[]{columnDefinitionTokens[0], columnDefinitionTokens[1]};
+        return new String[]{columnDefinitionTokens[0], dataTypeParameterRemoved};
     }
 }

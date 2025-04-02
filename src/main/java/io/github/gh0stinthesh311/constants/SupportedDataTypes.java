@@ -1,22 +1,28 @@
 package io.github.gh0stinthesh311.constants;
 
 public enum SupportedDataTypes {
-    INT(Integer.class),
-    VARCHAR(String.class),
-    TEXT(String.class),
-    BOOLEAN(Boolean.class),
-    DATE(java.util.Date.class),
-    TIME(java.sql.Time.class);
+    //    INT(Integer.class),
+//    VARCHAR(String.class),
+//    TEXT(String.class),
+//    BOOLEAN(Boolean.class),
+//    DATE(java.util.Date.class),
+//    TIME(java.sql.Time.class);
+    INT(),
+    VARCHAR(),
+    TEXT(),
+    BOOLEAN(),
+    DATE(),
+    TIME();
 
-    private final Class<?> associatedClass;
+//    private final Class<?> associatedClass;
+//
+//    SupportedDataTypes(Class<?> associatedClass) {
+//        this.associatedClass = associatedClass;
+//    }
 
-    SupportedDataTypes(Class<?> associatedClass) {
-        this.associatedClass = associatedClass;
-    }
-
-    public Class<?> getAssociatedClass() {
-        return associatedClass;
-    }
+//    public Class<?> getAssociatedClass() {
+//        return associatedClass;
+//    }
 
     public static String[] getSupportedDataTypes() {
         String[] supportedDataTypes = new String[SupportedDataTypes.values().length];

@@ -7,9 +7,7 @@ import java.util.Set;
 
 public class Table {
     String name;
-    //    List<ColumnMetadata> columns;
     HashMap<String, Column> columns;
-    //    List<Row> rows;
     Set<String> columnsNames;
 
     public Table(String name, HashMap<String, Column> columns) {
@@ -21,6 +19,11 @@ public class Table {
         this.name = name;
         this.columns = new HashMap();
     }
+
+    public void addColumn(String columnName, String columnType) {
+        LogUtil.info("Adding column: " + columnName + " to table " + this.name + ", type: " + columnType);
+        this.columns.put(columnName, new Column(columnName, columnType));
+     }
 
 //    public void addColumn(ColumnMetadata columnMetadata) {
 //        this.getColumns().add(columnMetadata);
@@ -101,11 +104,6 @@ public class Table {
     @Override
     public String toString() {
         return "Table: " + name + " \ncolumns = " + columns;
-
-    }
-
-    public void addColumn(String columnName, String columnType) {
-        LogUtil.info("Adding column: " + columnName + " to table " + this.name + ", type: " + columnType);
 
     }
 

@@ -22,7 +22,8 @@ public enum SQLKeywords {
     having("HAVING"),
     values("VALUES"),
     into("INTO"),
-    set("SET");
+    set("SET"),
+    table("TABLE");
 
     private String value;
 
