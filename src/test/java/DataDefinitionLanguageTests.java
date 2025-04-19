@@ -17,20 +17,21 @@ public class DataDefinitionLanguageTests {
 //    }
 
     @Test
-    public void test_01() {
+    public void createTableTest() {
         Parser parser = new Parser();
-        parser.parse(TestQueryConstants.DDL.CREATE_TABLE_01);
-        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TestQueryConstants.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
-        assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(TestQueryConstants.DDL.CREATE_TABLE_01_TABLE_NAME).getName(),
-                TestQueryConstants.DDL.CREATE_TABLE_01_TABLE_NAME);
+        parser.parse(Constants.DDL.CREATE_TABLE_01);
+        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(Constants.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
+        assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(Constants.DDL.CREATE_TABLE_01_TABLE_NAME).getName(),
+                Constants.DDL.CREATE_TABLE_01_TABLE_NAME);
     }
 
+
     @Test
-    public void test_02() {
+    public void dropTableTest() {
         Parser parser = new Parser();
-        parser.parse(TestQueryConstants.DDL.CREATE_TABLE_01);
-        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TestQueryConstants.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
-        parser.parse(TestQueryConstants.DDL.DROP_TABLE_01);
+        parser.parse(Constants.DDL.CREATE_TABLE_01);
+        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(Constants.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
+        parser.parse(Constants.DDL.DROP_TABLE_01);
         System.out.println(Memory.getInstance());
         assertEquals(Memory.getInstance().getCurrentDatabase().getTablesList().size(), 0);
     }

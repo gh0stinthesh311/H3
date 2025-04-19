@@ -20,12 +20,12 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
             String tableName = sqlArray[2];
             Table table = new Table(tableName);
             Memory.getInstance().getCurrentDatabase().addTable(table);
-            createColumns(SQL, table);
+//            createColumns(SQL, table);
         } else if (sqlArray[0].equalsIgnoreCase(SQLKeywords.drop.getValue()) && sqlArray[1].equalsIgnoreCase("TABLE")) {
             Memory.getInstance().getCurrentDatabase().dropTable(sqlArray[2]);
-        } else if (sqlArray[0].equalsIgnoreCase("CREATE") && sqlArray[1].equalsIgnoreCase("DATABASE")) {
+        } else if (sqlArray[0].equalsIgnoreCase(SQLKeywords.create.getValue()) && sqlArray[1].equalsIgnoreCase("DATABASE")) {
             Memory.getInstance().addDatabase(sqlArray[2]); // to do replace with keywords
-        } else if (sqlArray[0].equalsIgnoreCase("DROP") && sqlArray[1].equalsIgnoreCase("DATABASE")) {
+        } else if (sqlArray[0].equalsIgnoreCase(SQLKeywords.drop.getValue()) && sqlArray[1].equalsIgnoreCase("DATABASE")) {
             Memory.getInstance().dropDatabase(sqlArray[2]);
         }
     }

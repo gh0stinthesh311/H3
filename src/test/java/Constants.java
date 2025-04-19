@@ -1,4 +1,4 @@
-public class TestQueryConstants {
+public class Constants {
     public static class DDL {
         public static String CREATE_TABLE_01 = "CREATE TABLE Employees (\n" +
                 "    EmployeeID InT PRIMARY KEY, \n" +
