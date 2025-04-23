@@ -58,7 +58,6 @@ public class StringUtils {
             stringBuilder.append(" ");
             stringBuilder.append(trimmedSQL[i]);
         }
-
         LogUtil.info("Normalized statement:" + stringBuilder);
         return stringBuilder.toString();
     }

@@ -29,6 +29,7 @@ public class Parser implements ParsingSQL {
     public void parse(String SQLStatement) {
         String SQLStatement_normalized = normalize(SQLStatement);
         String[] SQL_StatementAsArray = SQLStatement_normalized.split(" ");
+        LogUtil.info("SQL statement after normalizing: " + SQLStatement_normalized);
         if (SQL_StatementAsArray[0].toUpperCase().equalsIgnoreCase(SQLKeywords.select.getValue())) {
             this.dataQueryLanguageMaster.execute(SQLStatement_normalized);
         } else if (SQL_StatementAsArray[0].toUpperCase().equalsIgnoreCase(SQLKeywords.create.getValue())
