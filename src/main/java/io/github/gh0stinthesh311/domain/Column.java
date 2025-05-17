@@ -13,6 +13,7 @@ public class Column {
 
     public Column(String name, String dataType) {
         this.name = name;
+        this.dataType = dataType;
 //        this.dataType = SupportedDataTypes.valueOf(dataType).getAssociatedClass();
     }
 
@@ -20,6 +21,9 @@ public class Column {
         // try to box row value and add to list
         // search column name among the row names and if one equal then try to box the value ot this.dataType
         // on fail throw exception
+
+
+
     }
 
     @Override

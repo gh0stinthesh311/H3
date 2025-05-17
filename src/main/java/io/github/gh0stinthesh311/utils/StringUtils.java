@@ -26,31 +26,28 @@ public class StringUtils {
 
 
         // SQL key words normalize
-        String[] keyWords = getSQLKeyWords();
-        for (int i = 0; i < trimmedSQL.length; i++) {
-            System.out.println("Checking:" + trimmedSQL[i]);
-            for (int j = 0; j < keyWords.length; j++) {
-                if (trimmedSQL[i].equalsIgnoreCase(keyWords[j])) {
-                    trimmedSQL[i] = keyWords[j];
-                    System.out.println("replacing " + trimmedSQL[i] + " with " + keyWords[j]);
-
-                }
-            }
-        }
+//        String[] keyWords = getSQLKeyWords();
+//        for (int i = 0; i < trimmedSQL.length; i++) {
+//            System.out.println("Checking:" + trimmedSQL[i]);
+//            for (int j = 0; j < keyWords.length; j++) {
+//                if (trimmedSQL[i].equalsIgnoreCase(keyWords[j])) {
+//                    trimmedSQL[i] = keyWords[j];
+//                    System.out.println("replacing " + trimmedSQL[i] + " with " + keyWords[j]);
+//                }
+//            }
+//        }
 
         // data type keywords normalize
-
-        String[] dataTypes = getSupportedDataTypes();
-        System.out.println(Arrays.toString(dataTypes));
-        for (int k = 0; k < trimmedSQL.length; k++) {
-            for (int l = 0; l < dataTypes.length; l++) {
-                if (trimmedSQL[k].equalsIgnoreCase(dataTypes[l])) {
-                    trimmedSQL[k] = dataTypes[l];
-                    System.out.println("replacing " + trimmedSQL[k] + " with " + dataTypes[l]);
-
-                }
-            }
-        }
+//        String[] dataTypes = getSupportedDataTypes();
+//        System.out.println(Arrays.toString(dataTypes));
+//        for (int k = 0; k < trimmedSQL.length; k++) {
+//            for (int l = 0; l < dataTypes.length; l++) {
+//                if (trimmedSQL[k].equalsIgnoreCase(dataTypes[l])) {
+//                    trimmedSQL[k] = dataTypes[l];
+//                    System.out.println("replacing " + trimmedSQL[k] + " with " + dataTypes[l]); // remove this
+//                }
+//            }
+//        }
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(trimmedSQL[0]); // this is because first one has no space to begin with.
@@ -62,5 +59,10 @@ public class StringUtils {
         return stringBuilder.toString();
     }
 
+
+
+    public void getColumnDefinitions(){} // for creating columns
+    public void getColumnList(){} // for inserting
+    public void getInsertPayload(){} // list of values to insert
 
 }

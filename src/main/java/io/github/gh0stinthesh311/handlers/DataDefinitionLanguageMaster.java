@@ -15,7 +15,7 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
     @Override
     public void execute(String SQL) {
         String[] sqlArray = SQL.split(" ");
-        if (sqlArray[0].equals(SQLKeywords.create.getValue()) && sqlArray[1].equalsIgnoreCase("TABLE")) {
+        if (sqlArray[0].equalsIgnoreCase(SQLKeywords.create.getValue()) && sqlArray[1].equalsIgnoreCase("TABLE")) {
             LogUtil.info("Creating table " + sqlArray[2]);
             String tableName = sqlArray[2];
             Table table = new Table(tableName);
@@ -24,24 +24,24 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
         } else if (sqlArray[0].equalsIgnoreCase(SQLKeywords.drop.getValue()) && sqlArray[1].equalsIgnoreCase("TABLE")) {
             Memory.getInstance().getCurrentDatabase().dropTable(sqlArray[2]);
         } else if (sqlArray[0].equalsIgnoreCase(SQLKeywords.create.getValue()) && sqlArray[1].equalsIgnoreCase("DATABASE")) {
-            Memory.getInstance().addDatabase(sqlArray[2]); // to do replace with keywords
+            Memory.getInstance().addDatabase(sqlArray[2]);
         } else if (sqlArray[0].equalsIgnoreCase(SQLKeywords.drop.getValue()) && sqlArray[1].equalsIgnoreCase("DATABASE")) {
             Memory.getInstance().dropDatabase(sqlArray[2]);
         }
     }
 
 
-    public void createTable() {
-    }
-
-    public void dropTable() {
-    }
-
-    public void createDatabase() {
-    }
-
-    public void dropDatabase() {
-    }
+//    public void createTable() {
+//    }
+//
+//    public void dropTable() {
+//    }
+//
+//    public void createDatabase() {
+//    }
+//
+//    public void dropDatabase() {
+//    }
 
 //    public void createColumns(String SQL, Table table) {
 //        String[] columnDefinitions = extractColumnDefinitions(SQL).split(",");

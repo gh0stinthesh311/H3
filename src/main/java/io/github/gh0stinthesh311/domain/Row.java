@@ -11,7 +11,6 @@ public class Row {
     }
 
     public void addValue(String columnName, Object value) {
-
         // from column name validate the type of data that shall be created as row
         this.value.put(columnName, value); // validate data type from column
     }

@@ -1,6 +1,6 @@
 public class Constants {
     public static class DDL {
-        public static String CREATE_TABLE_01 = "CREATE TABLE Employees (\n" +
+        public static String CREATE_TABLE_01 = "CREaTE TABLE Employees (\n" +
                 "    EmployeeID InT PRIMARY KEY, \n" +
                 "    FirstName VARCHAR(50) NOT NULL, \n" +
                 "    LastName VArCHaR(50), \n" +
@@ -56,6 +56,8 @@ public class Constants {
     public static class DML {
         public static String INSERT_BOOK = "INSERT INTO books (title, author_id) VALUES (?, ?)";
         public static String DELETE_BOOK = "DELETE FROM books WHERE id = ?";
+        public static String CREATE_USER_TABLE = "CREATE TABLE users (ID INT PRIMARY KEY, NAME VARCHAR(255), AGE INT);";
+        public static String INSERT_USER = "INSERT INTO users (id, name, age) VALUES (1, 'Alice', 25);";
     }
 
 }

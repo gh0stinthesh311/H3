@@ -11,8 +11,9 @@ import java.util.stream.Collectors;
 
 public class Table {
     String name;
-    HashMap<String, Column> columns;
-    Set<String> columnsNames;
+//    HashMap<String, Column> columns;
+//    Set<String> columnsNames;
+    // add rows here 
 
     public Table(String name, HashMap<String, Column> columns) {
         this.name = name;
@@ -28,7 +29,7 @@ public class Table {
         LogUtil.info("Adding column: " + columnName + " to table " + this.name + ", type: " + columnType);
         this.columns.put(columnName, new Column(columnName, columnType));
         LogUtil.info("Table: " + this.getName() + " contains " + columns.size() + " columns");
-
+        System.out.println(this.columns);
     }
 
     public void createColumns(String SQL, Table table) {
@@ -40,12 +41,13 @@ public class Table {
         }
     }
 
-
+    // Move as service
     public String extractColumnDefinitions(String SQL) {
         String columnDefinitions = SQL.substring(SQL.indexOf("(") + 1, SQL.lastIndexOf(")")).trim();
         LogUtil.info("Extracted column definitions: " + columnDefinitions);
         return columnDefinitions;
     }
+    // Move as service
 
     public String[] parseAndReturnColumnDefinition(String columnDefinition) {
         String[] columnDefinitionTokens = columnDefinition.split(" ");
@@ -84,9 +86,15 @@ public class Table {
 //        this.getColumns().add(columnMetadata);
 //    }
 
-//    public void addRow(Row row) {
+    public Row parseRow(String sql) {
+        return new Row();
+    }
+
+
+//    public void addRow(String sql) {
+//
 //        if (columnExistsInTable(row)) {
-//            rows.add(row);
+////            rows.add(parseRow(sql));
 //        }
 //    }
 
@@ -144,13 +152,18 @@ public class Table {
 //        this.rows = rows;
 //    }
 
-    public Set<String> getColumnsNames() {
-        return columnsNames;
+//    public Set<String> getColumnsNames() {
+//        return columnsNames;
+//    }
+
+    public Column getColumnByName(String columnName) {
+        return columns.get(columnName);
     }
 
-    public void setColumnsNames(Set<String> columnsNames) {
-        this.columnsNames = columnsNames;
-    }
+
+//    public void setColumnsNames(Set<String> columnsNames) {
+//        this.columnsNames = columnsNames;
+//    }
 
 //    public int getNumberOfRows() {
 //        return rows.size();
