@@ -29,8 +29,6 @@ public class DataDefinitionLanguageMaster implements SqlExecutor {
             Memory.getInstance().dropDatabase(sqlArray[2]);
         }
     }
-
-
 //    public void createTable() {
 //    }
 //

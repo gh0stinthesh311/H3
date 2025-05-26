@@ -4,6 +4,8 @@ import io.github.gh0stinthesh311.exceptions.TableSizeException;
 
 import java.util.ArrayList;
 
+import static io.github.gh0stinthesh311.constants.SysMessages.MAX_TABLE_SIZE_EXCEEDED;
+
 /*
  * NOTE: Instead of:
  *
@@ -39,7 +41,7 @@ public class LimitedArrayList<T> extends ArrayList<T> {
         if (this.size() < maxSize) {
             return super.add(e);
         }
-        throw new TableSizeException("Exceeded max table size: " + maxSize);
+        throw new TableSizeException(MAX_TABLE_SIZE_EXCEEDED.getMessage() + maxSize);
     }
 
     public int getMaxSize() {

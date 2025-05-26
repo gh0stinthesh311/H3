@@ -22,7 +22,7 @@ public class StringUtils {
                 .replaceAll(" +", " ")      // Collapse multiple spaces
                 .replaceAll(";$", "") // remove ";" at the end
                 .split(" ");
-        //need method to join string[] to one string
+        // to do need method to join string[] to one string
 
 
         // SQL key words normalize

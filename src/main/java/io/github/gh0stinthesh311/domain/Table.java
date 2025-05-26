@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class Table {
     String name;
-//    HashMap<String, Column> columns;
-//    Set<String> columnsNames;
-    // add rows here 
+    HashMap<String, Column> columns;
+    // Set<String> columnsNames;
+    // add rows here
 
     public Table(String name, HashMap<String, Column> columns) {
         this.name = name;
@@ -27,9 +27,9 @@ public class Table {
 
     public void addColumn(String columnName, String columnType) {
         LogUtil.info("Adding column: " + columnName + " to table " + this.name + ", type: " + columnType);
-        this.columns.put(columnName, new Column(columnName, columnType));
-        LogUtil.info("Table: " + this.getName() + " contains " + columns.size() + " columns");
-        System.out.println(this.columns);
+        this.columns.put(columnName, new Column(columnType));
+        LogUtil.info("Table: " + this.getName() + " contains following " + this.columns.size() + " columns:");
+        columns.forEach((key, value) -> LogUtil.info(key + " " + value));
     }
 
     public void createColumns(String SQL, Table table) {
@@ -41,44 +41,49 @@ public class Table {
         }
     }
 
-    // Move as service
     public String extractColumnDefinitions(String SQL) {
         String columnDefinitions = SQL.substring(SQL.indexOf("(") + 1, SQL.lastIndexOf(")")).trim();
         LogUtil.info("Extracted column definitions: " + columnDefinitions);
         return columnDefinitions;
     }
-    // Move as service
 
     public String[] parseAndReturnColumnDefinition(String columnDefinition) {
         String[] columnDefinitionTokens = columnDefinition.split(" ");
-        // to do - this should be made in normalize section
-        // removes "(", ")" and everything in between, so that VARCHAR(256) -> VARCHAR
-        String dataTypeParameterRemoved = columnDefinitionTokens[1].replaceAll("\\([^)]*\\)", "");
-        System.out.println("dataTypeParameterRemoved:" + dataTypeParameterRemoved);
-//
-//        if (dataTypeParameterRemoved.toUpperCase().equals(SupportedDataTypes.INT.name())) {
-//            LogUtil.info(SupportedDataTypes.INT.name() + SysMessages.DATATYPE_FOUND.getMessage());
-//        } else if (dataTypeParameterRemoved.toUpperCase().equals(SupportedDataTypes.VARCHAR.name())) {
-//            LogUtil.info(SupportedDataTypes.VARCHAR.name() + SysMessages.DATATYPE_FOUND.getMessage());
-//        } else if (dataTypeParameterRemoved.toUpperCase().equals(SupportedDataTypes.TEXT.name())) {
-//            LogUtil.info(SupportedDataTypes.TEXT.name() + SysMessages.DATATYPE_FOUND.getMessage());
-//        } else if (dataTypeParameterRemoved.toUpperCase().equals(SupportedDataTypes.BOOLEAN.name())) {
-//            LogUtil.info(SupportedDataTypes.BOOLEAN.name() + SysMessages.DATATYPE_FOUND.getMessage());
-//        } else if (dataTypeParameterRemoved.toUpperCase().equals(SupportedDataTypes.DATE.name())) {
-//            LogUtil.info(SupportedDataTypes.DATE.name() + SysMessages.DATATYPE_FOUND.getMessage());
-//        } else if (dataTypeParameterRemoved.toUpperCase().equals(SupportedDataTypes.TIME.name())) {
-//            LogUtil.info(SupportedDataTypes.TIME.name() + SysMessages.DATATYPE_FOUND.getMessage());
-//        }
-//        System.out.println(Arrays.asList(columnDefinitionTokens));
-        Set<String> supportedTypes = Arrays.stream(SupportedDataTypes.values())
-                .map(Enum::name)
-                .collect(Collectors.toSet());
-        if (supportedTypes.contains(dataTypeParameterRemoved.toUpperCase())) {
-            LogUtil.info(dataTypeParameterRemoved.toUpperCase() + SysMessages.DATATYPE_FOUND.getMessage());
+        String columnDefinitionType;
+        if (columnDefinitionTokens[1].contains("(") || columnDefinitionTokens[1].contains(")")) {
+            columnDefinitionType = columnDefinitionTokens[1].replaceAll("\\([^)]*\\)", "");
+            System.out.println("Data type parameter removed:" + columnDefinitionType);
         } else {
-            LogUtil.warn(dataTypeParameterRemoved.toUpperCase() + SysMessages.DATATYPE_NOT_FOUND.getMessage());
+            columnDefinitionType = columnDefinitionTokens[1];
         }
-        return new String[]{columnDefinitionTokens[0], dataTypeParameterRemoved};
+
+        if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.INT.name())) {
+            LogUtil.info(SupportedDataTypes.INT.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.VARCHAR.name())) {
+            LogUtil.info(SupportedDataTypes.VARCHAR.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.TEXT.name())) {
+            LogUtil.info(SupportedDataTypes.TEXT.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.BOOLEAN.name())) {
+            LogUtil.info(SupportedDataTypes.BOOLEAN.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.DATE.name())) {
+            LogUtil.info(SupportedDataTypes.DATE.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.TIME.name())) {
+            LogUtil.info(SupportedDataTypes.TIME.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        }
+//        else {
+//            LogUtil.warn(columnDefinitionType + SysMessages.DATATYPE_NOT_FOUND.getMessage());
+//        }
+
+
+//        Set<String> supportedTypes = Arrays.stream(SupportedDataTypes.values())
+//                .map(Enum::name)
+//                .collect(Collectors.toSet());
+//        if (supportedTypes.contains(dataTypeParameterRemoved.toUpperCase())) {
+//            LogUtil.info(dataTypeParameterRemoved.toUpperCase() + SysMessages.DATATYPE_FOUND.getMessage());
+//        } else {
+//            LogUtil.warn(dataTypeParameterRemoved.toUpperCase() + SysMessages.DATATYPE_NOT_FOUND.getMessage());
+//        }
+        return new String[]{columnDefinitionTokens[0], columnDefinitionType};
     }
 
 
@@ -90,11 +95,11 @@ public class Table {
         return new Row();
     }
 
-
+// id - 1 , name - 'Alice'
 //    public void addRow(String sql) {
 //
 //        if (columnExistsInTable(row)) {
-////            rows.add(parseRow(sql));
+//            rows.add(parseRow(sql));
 //        }
 //    }
 
@@ -168,6 +173,13 @@ public class Table {
 //    public int getNumberOfRows() {
 //        return rows.size();
 //    }
+
+
+    public void addRow(Row row) {
+        // if you want to add row to a table you need to validate it against the columns that table has.
+        // for example if you want to add row " 23,mike, 28" you have to make sure columns id, name, age exist
+        // column has name and type it can hold
+    }
 
     @Override
     public String toString() {

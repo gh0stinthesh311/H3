@@ -8,7 +8,8 @@ public enum SysMessages {
     SUCCESS_DELETE("Successfully deleted."),
     ERROR_NOT_FOUND("Record not found."),
     ERROR_DUPLICATE("Duplicate entry detected."),
-    ERROR_DATABASE("Database error occurred.");
+    ERROR_DATABASE("Database error occurred."),
+    MAX_TABLE_SIZE_EXCEEDED("Exceeded max table size.");
 
     private String message;
 
