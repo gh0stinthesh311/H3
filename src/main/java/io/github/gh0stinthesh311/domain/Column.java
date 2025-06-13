@@ -27,9 +27,10 @@ public class Column {
         return Arrays.asList(getSupportedDataTypes()).contains(value.toUpperCase());
     }
 
+
+
     @Override
     public String toString() {
         return dataType;
-
     }
 }

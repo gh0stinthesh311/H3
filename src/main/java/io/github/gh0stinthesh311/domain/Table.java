@@ -4,10 +4,8 @@ import io.github.gh0stinthesh311.constants.SupportedDataTypes;
 import io.github.gh0stinthesh311.constants.SysMessages;
 import io.github.gh0stinthesh311.utils.LogUtil;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 public class Table {
     String name;
@@ -25,13 +23,6 @@ public class Table {
         this.columns = new HashMap();
     }
 
-    public void addColumn(String columnName, String columnType) {
-        LogUtil.info("Adding column: " + columnName + " to table " + this.name + ", type: " + columnType);
-        this.columns.put(columnName, new Column(columnType));
-        LogUtil.info("Table: " + this.getName() + " contains following " + this.columns.size() + " columns:");
-        columns.forEach((key, value) -> LogUtil.info(key + " " + value));
-    }
-
     public void createColumns(String SQL, Table table) {
         String[] columnDefinitions = extractColumnDefinitions(SQL).split(",");
         for (String columnDefinition : columnDefinitions) {
@@ -47,6 +38,13 @@ public class Table {
         return columnDefinitions;
     }
 
+    public void addColumn(String columnName, String columnType) {
+        LogUtil.info("Adding column: " + columnName + " to table " + this.name + ", type: " + columnType);
+        this.columns.put(columnName, new Column(columnType));
+        LogUtil.info("Table: " + this.getName() + " contains following " + this.columns.size() + " column(s):");
+        columns.forEach((key, value) -> LogUtil.info(key + " " + value));
+    }
+
     public String[] parseAndReturnColumnDefinition(String columnDefinition) {
         String[] columnDefinitionTokens = columnDefinition.split(" ");
         String columnDefinitionType;
@@ -56,7 +54,6 @@ public class Table {
         } else {
             columnDefinitionType = columnDefinitionTokens[1];
         }
-
         if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.INT.name())) {
             LogUtil.info(SupportedDataTypes.INT.name() + SysMessages.DATATYPE_FOUND.getMessage());
         } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.VARCHAR.name())) {
@@ -70,34 +67,11 @@ public class Table {
         } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.TIME.name())) {
             LogUtil.info(SupportedDataTypes.TIME.name() + SysMessages.DATATYPE_FOUND.getMessage());
         }
-//        else {
-//            LogUtil.warn(columnDefinitionType + SysMessages.DATATYPE_NOT_FOUND.getMessage());
-//        }
-
-
-//        Set<String> supportedTypes = Arrays.stream(SupportedDataTypes.values())
-//                .map(Enum::name)
-//                .collect(Collectors.toSet());
-//        if (supportedTypes.contains(dataTypeParameterRemoved.toUpperCase())) {
-//            LogUtil.info(dataTypeParameterRemoved.toUpperCase() + SysMessages.DATATYPE_FOUND.getMessage());
-//        } else {
-//            LogUtil.warn(dataTypeParameterRemoved.toUpperCase() + SysMessages.DATATYPE_NOT_FOUND.getMessage());
-//        }
         return new String[]{columnDefinitionTokens[0], columnDefinitionType};
     }
 
-
-//    public void addColumn(ColumnMetadata columnMetadata) {
-//        this.getColumns().add(columnMetadata);
-//    }
-
-    public Row parseRow(String sql) {
-        return new Row();
-    }
-
-// id - 1 , name - 'Alice'
-//    public void addRow(String sql) {
-//
+    // id - 1 , name - 'Alice'
+//    public void addRow(String row) {
 //        if (columnExistsInTable(row)) {
 //            rows.add(parseRow(sql));
 //        }
@@ -176,9 +150,15 @@ public class Table {
 
 
     public void addRow(Row row) {
+
         // if you want to add row to a table you need to validate it against the columns that table has.
-        // for example if you want to add row " 23,mike, 28" you have to make sure columns id, name, age exist
-        // column has name and type it can hold
+        // for example if you want to add row " 23, mike, 28" you have to make sure columns "id, name, age" exists
+        // column has name and type it can hold - so name validation and type validation should take place
+    }
+
+
+    public void addValueToColumn(String value, Column column) {
+
     }
 
     @Override

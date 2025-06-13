@@ -1,15 +1,23 @@
 public class Constants {
     public static class DDL {
-        public static String CREATE_TABLE_01 = "CREaTE TABLE Employees (\n" +
+        public static String CREATE_TABLE_01_TABLE_NAME = "Employees";
+
+        public static String CREATE_TABLE_01 = "CREaTE TABLE " + CREATE_TABLE_01_TABLE_NAME + "   (\n" +
                 "    EmployeeID InT PRIMARY KEY, \n" +
                 "    FirstName VARCHAR(50) NOT NULL, \n" +
                 "    LastName VArCHaR(50), \n" +
                 "    Age INT(),\n" +
                 "    HireDate dAtE\n" +
                 ");\n";
-        public static String CREATE_TABLE_01_TABLE_NAME = "Employees";
+        public static String DROP_TABLE_01 = "DrOp TABLE " + CREATE_TABLE_01_TABLE_NAME + " ;";
 
-        public static String DROP_TABLE_01 = "DrOp TABLE Employees;";
+        public static String CREATE_AND_DROP_TABLE_01 = "CREaTE TABLE " + CREATE_TABLE_01_TABLE_NAME + "   (\n" +
+                "    EmployeeID InT PRIMARY KEY, \n" +
+                "    FirstName VARCHAR(50) NOT NULL, \n" +
+                "    LastName VArCHaR(50), \n" +
+                "    Age INT(),\n" +
+                "    HireDate dAtE\n" +
+                "); DrOp TABLE " + CREATE_TABLE_01_TABLE_NAME;
 
         public static String CREATE_TABLE_CONDITIONAL =
                 "CREATE TABLE IF NOT EXISTS books (" +
@@ -58,6 +66,11 @@ public class Constants {
         public static String DELETE_BOOK = "DELETE FROM books WHERE id = ?";
         public static String CREATE_USER_TABLE = "CREATE TABLE users (ID INT PRIMARY KEY, NAME VARCHAR(255), AGE INT);";
         public static String INSERT_USER = "INSERT INTO users (id, name, age) VALUES (1, 'Alice', 25);";
+        public static String INSERT_USERS = "INSERT INTO users (id, name) VALUES (1, 'Alice');\n" +
+                "    INSERT INTO users (id, name) VALUES (2, 'Bob');\n" +
+                "    SELECT * FROM users;";
+
+
     }
 
 }

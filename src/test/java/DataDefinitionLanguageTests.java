@@ -1,5 +1,6 @@
 import io.github.gh0stinthesh311.memory.Memory;
 import io.github.gh0stinthesh311.parser.Parser;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -23,8 +24,9 @@ public class DataDefinitionLanguageTests {
         assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(Constants.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
         assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(Constants.DDL.CREATE_TABLE_01_TABLE_NAME).getName(),
                 Constants.DDL.CREATE_TABLE_01_TABLE_NAME);
-    }
+        Assert.assertEquals(1, Memory.getInstance().getCurrentDatabase().getNumberOfTables());
 
+    }
 
     @Test
     public void dropTableTest() {
@@ -36,15 +38,14 @@ public class DataDefinitionLanguageTests {
         assertEquals(Memory.getInstance().getCurrentDatabase().getTablesList().size(), 0);
     }
 
-//    @Test
-//    public void createAndDropTableTest() {
-//        Memory memory = Memory.getInstance();
-//        Parser parser = new Parser();
-//        parser.parse(CREATE_TABLE_SQL + TABLE_NAME);
-//        Assert.assertEquals(1, memory.getCurrentDatabase().getNumberOfTables());
-//        parser.parse(DROP_TABLE_SQL + TABLE_NAME);
+    @Test
+    public void createAndDropTableTest() {
+        Parser parser = new Parser();
+        parser.parse(Constants.DDL.CREATE_AND_DROP_TABLE_01);
+        Assert.assertEquals(0, Memory.getInstance().getCurrentDatabase().getNumberOfTables());
+//        parser.parse(CREATE_TABLE_01 + TABLE_NAME);
 //        Assert.assertEquals(0, memory.getCurrentDatabase().getNumberOfTables());
-//    }
+    }
 //
 //    @Test
 //    public void createAndDropDBTest() {

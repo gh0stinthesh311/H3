@@ -1,6 +1,10 @@
 package io.github.gh0stinthesh311.utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static io.github.gh0stinthesh311.constants.SQLKeywords.getSQLKeyWords;
 import static io.github.gh0stinthesh311.constants.SupportedDataTypes.getSupportedDataTypes;
@@ -20,7 +24,7 @@ public class StringUtils {
                 .replaceAll("\\s+\\)", ")")  // Remove spaces before ")"
                 .replaceAll(",\\s+", ",")   // Remove spaces after ","
                 .replaceAll(" +", " ")      // Collapse multiple spaces
-                .replaceAll(";$", "") // remove ";" at the end
+//                .replaceAll(";$", "") // remove ";" at the end
                 .split(" ");
         // to do need method to join string[] to one string
 
@@ -60,9 +64,25 @@ public class StringUtils {
     }
 
 
+    public void getColumnDefinitions() {
+    } // for creating columns
 
-    public void getColumnDefinitions(){} // for creating columns
-    public void getColumnList(){} // for inserting
-    public void getInsertPayload(){} // list of values to insert
+    public void getColumnList() {
+    } // for inserting
+
+    public void getInsertPayload() {
+    } // list of values to insert
+
+//    public static ArrayList<String> extractAllParenthesesContents(String text) {
+//        String regex = "[(](.*?)[)]";
+//        List<String> result = new ArrayList<>();
+//        Matcher matcher = Pattern.compile(regex)
+//                .matcher(text);
+//        while (matcher.find()) {
+//            result.add(matcher.group(1));
+//        }
+//        return new ArrayList<>(result);
+//    }
+
 
 }

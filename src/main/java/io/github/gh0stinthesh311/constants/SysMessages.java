@@ -9,7 +9,8 @@ public enum SysMessages {
     ERROR_NOT_FOUND("Record not found."),
     ERROR_DUPLICATE("Duplicate entry detected."),
     ERROR_DATABASE("Database error occurred."),
-    MAX_TABLE_SIZE_EXCEEDED("Exceeded max table size.");
+    MAX_TABLE_SIZE_EXCEEDED("Exceeded max table size."),
+    MULTI_QUERY_STATEMENT("Multiple statements query found.");
 
     private String message;
 

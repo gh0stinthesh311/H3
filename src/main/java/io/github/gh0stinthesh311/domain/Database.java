@@ -43,7 +43,7 @@ public class Database {
     }
 
     public void dropTable(String name) {
-        LogUtil.info("Dropping table: " + name + " from database " + this.getName());
+        LogUtil.info("Dropping table:" + name + " from database " + this.getName());
         this.tables.remove(name);
     }
 

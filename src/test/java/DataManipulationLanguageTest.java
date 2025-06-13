@@ -12,5 +12,11 @@ public class DataManipulationLanguageTest {
 
     }
 
+    @Test
+    public void cascadeInsertStatement() {
+
+
+    }
+
 
 }

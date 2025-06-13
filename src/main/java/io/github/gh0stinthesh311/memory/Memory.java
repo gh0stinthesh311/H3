@@ -29,12 +29,14 @@ public class Memory {
 
     public void addDatabase(String databaseName) {
         this.databases.put(databaseName, new Database(databaseName));
-        System.out.println("Database added to memory: " + databaseName);
+//        System.out.println("Database added to memory: " + databaseName);
+        // to do add log here
     }
 
     public void dropDatabase(String databaseName) {
         this.databases.remove(databaseName);
         System.out.println("Database removed from memory: " + databaseName);
+        // to do add log here
     }
 
     public Database getCurrentDatabase() {
@@ -52,6 +54,4 @@ public class Memory {
     public int getNumberOfDatabases() {
         return databases.size();
     }
-
-
 }
