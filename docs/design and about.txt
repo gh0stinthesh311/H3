@@ -54,5 +54,9 @@ The logging problem
 How do you solve a problem of vArChar vs vARchar(50). They both need to be normalized.
 
 
+column names (following most DB's philosophy) are case insensetive (id = Id = ID = iD) (this in fact why tree map was used), 
+while table names are. Tables 'car' and 'Car' are deemed to be different. 
+
+
 
 

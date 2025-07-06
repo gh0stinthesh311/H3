@@ -23,6 +23,7 @@ public enum SQLKeywords {
     values("VALUES"),
     into("INTO"),
     set("SET"),
+    database("DATABASE"),
     table("TABLE");
 
     private String value;

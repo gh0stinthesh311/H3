@@ -44,7 +44,11 @@ public class Database {
 
     public void dropTable(String name) {
         LogUtil.info("Dropping table:" + name + " from database " + this.getName());
-        this.tables.remove(name);
+        if (tables.containsKey(name)) {
+
+            this.tables.remove(name);
+        } else
+            LogUtil.error("No such table:" + name + " in " + this.getName());
     }
 
     public int getNumberOfTables() {

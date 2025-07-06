@@ -1,6 +1,6 @@
 package io.github.gh0stinthesh311.constants;
 
-public enum SupportedDataTypes {
+public enum SupportedDataType {
     INT(Integer.class),
     VARCHAR(String.class),
     TEXT(String.class),
@@ -10,7 +10,7 @@ public enum SupportedDataTypes {
 
     private final Class<?> associatedClass;
 
-    SupportedDataTypes(Class<?> associatedClass) {
+    SupportedDataType(Class<?> associatedClass) {
         this.associatedClass = associatedClass;
     }
 
@@ -19,9 +19,9 @@ public enum SupportedDataTypes {
     }
 
     public static String[] getSupportedDataTypes() {
-        String[] supportedDataTypes = new String[SupportedDataTypes.values().length];
+        String[] supportedDataTypes = new String[SupportedDataType.values().length];
         int i = 0;
-        for (SupportedDataTypes supportedDataType : SupportedDataTypes.values()) {
+        for (SupportedDataType supportedDataType : SupportedDataType.values()) {
             supportedDataTypes[i++] = supportedDataType.name().toString();
         }
         return supportedDataTypes;

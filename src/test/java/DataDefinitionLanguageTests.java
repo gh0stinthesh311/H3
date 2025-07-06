@@ -20,10 +20,10 @@ public class DataDefinitionLanguageTests {
     @Test
     public void createTableTest() {
         Parser parser = new Parser();
-        parser.parse(Constants.DDL.CREATE_TABLE_01);
-        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(Constants.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
-        assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(Constants.DDL.CREATE_TABLE_01_TABLE_NAME).getName(),
-                Constants.DDL.CREATE_TABLE_01_TABLE_NAME);
+        parser.parse(TestQueries.DDL.CREATE_TABLE_01);
+        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
+        assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME).getName(),
+                TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME);
         Assert.assertEquals(1, Memory.getInstance().getCurrentDatabase().getNumberOfTables());
 
     }
@@ -31,9 +31,9 @@ public class DataDefinitionLanguageTests {
     @Test
     public void dropTableTest() {
         Parser parser = new Parser();
-        parser.parse(Constants.DDL.CREATE_TABLE_01);
-        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(Constants.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
-        parser.parse(Constants.DDL.DROP_TABLE_01);
+        parser.parse(TestQueries.DDL.CREATE_TABLE_01);
+        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
+        parser.parse(TestQueries.DDL.DROP_TABLE_01);
         System.out.println(Memory.getInstance());
         assertEquals(Memory.getInstance().getCurrentDatabase().getTablesList().size(), 0);
     }
@@ -41,12 +41,10 @@ public class DataDefinitionLanguageTests {
     @Test
     public void createAndDropTableTest() {
         Parser parser = new Parser();
-        parser.parse(Constants.DDL.CREATE_AND_DROP_TABLE_01);
+        parser.parse(TestQueries.DDL.CREATE_AND_DROP_TABLE_01);
         Assert.assertEquals(0, Memory.getInstance().getCurrentDatabase().getNumberOfTables());
-//        parser.parse(CREATE_TABLE_01 + TABLE_NAME);
-//        Assert.assertEquals(0, memory.getCurrentDatabase().getNumberOfTables());
     }
-//
+
 //    @Test
 //    public void createAndDropDBTest() {
 //        Memory memory = Memory.getInstance();
@@ -56,6 +54,4 @@ public class DataDefinitionLanguageTests {
 //        parser.parse(DROP_DB_SQL + DB_NAME);
 //        Assert.assertEquals(1, memory.getNumberOfDatabases());
 //    }
-
-
 }

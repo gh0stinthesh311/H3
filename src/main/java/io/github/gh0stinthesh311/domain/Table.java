@@ -1,49 +1,48 @@
 package io.github.gh0stinthesh311.domain;
 
-import io.github.gh0stinthesh311.constants.SupportedDataTypes;
+import io.github.gh0stinthesh311.constants.SupportedDataType;
 import io.github.gh0stinthesh311.constants.SysMessages;
+import io.github.gh0stinthesh311.exceptions.DataBoxingException;
 import io.github.gh0stinthesh311.utils.LogUtil;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
+import static io.github.gh0stinthesh311.utils.StringUtils.extractContentBetweenParentheses;
 
 public class Table {
     String name;
-    HashMap<String, Column> columns;
-    // Set<String> columnsNames;
-    // add rows here
-
-    public Table(String name, HashMap<String, Column> columns) {
-        this.name = name;
-        this.columns = columns;
-    }
+    Map<String, Column> columns; // name and column type
+    ArrayList<Row> rows;
 
     public Table(String name) {
         this.name = name;
-        this.columns = new HashMap();
+        this.columns = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     }
 
     public void createColumns(String SQL, Table table) {
         String[] columnDefinitions = extractColumnDefinitions(SQL).split(",");
         for (String columnDefinition : columnDefinitions) {
-            LogUtil.info("Parsing column definition: " + columnDefinition);
+            LogUtil.info("Parsing column definition:" + columnDefinition);
             String[] parsedColumnDefinition = parseAndReturnColumnDefinition(columnDefinition);
             table.addColumn(parsedColumnDefinition[0], parsedColumnDefinition[1]);
         }
     }
 
+    public void addColumn(String columnName, String columnType) {
+        LogUtil.info("Adding column:" + columnName + " to table " + this.name + ", type:" + columnType);
+        this.columns.put(columnName, new Column(columnType));
+        LogUtil.info("Table:" + this.getName() + " contains following " + this.columns.size() + " column(s):");
+        columns.forEach((key, value) -> LogUtil.info(key + " " + value));
+    }
+
     public String extractColumnDefinitions(String SQL) {
         String columnDefinitions = SQL.substring(SQL.indexOf("(") + 1, SQL.lastIndexOf(")")).trim();
-        LogUtil.info("Extracted column definitions: " + columnDefinitions);
+        LogUtil.info("Extracted column definitions:" + columnDefinitions);
         return columnDefinitions;
     }
 
-    public void addColumn(String columnName, String columnType) {
-        LogUtil.info("Adding column: " + columnName + " to table " + this.name + ", type: " + columnType);
-        this.columns.put(columnName, new Column(columnType));
-        LogUtil.info("Table: " + this.getName() + " contains following " + this.columns.size() + " column(s):");
-        columns.forEach((key, value) -> LogUtil.info(key + " " + value));
-    }
 
     public String[] parseAndReturnColumnDefinition(String columnDefinition) {
         String[] columnDefinitionTokens = columnDefinition.split(" ");
@@ -54,58 +53,22 @@ public class Table {
         } else {
             columnDefinitionType = columnDefinitionTokens[1];
         }
-        if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.INT.name())) {
-            LogUtil.info(SupportedDataTypes.INT.name() + SysMessages.DATATYPE_FOUND.getMessage());
-        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.VARCHAR.name())) {
-            LogUtil.info(SupportedDataTypes.VARCHAR.name() + SysMessages.DATATYPE_FOUND.getMessage());
-        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.TEXT.name())) {
-            LogUtil.info(SupportedDataTypes.TEXT.name() + SysMessages.DATATYPE_FOUND.getMessage());
-        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.BOOLEAN.name())) {
-            LogUtil.info(SupportedDataTypes.BOOLEAN.name() + SysMessages.DATATYPE_FOUND.getMessage());
-        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.DATE.name())) {
-            LogUtil.info(SupportedDataTypes.DATE.name() + SysMessages.DATATYPE_FOUND.getMessage());
-        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataTypes.TIME.name())) {
-            LogUtil.info(SupportedDataTypes.TIME.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        if (columnDefinitionType.toUpperCase().equals(SupportedDataType.INT.name())) {
+            LogUtil.info(SupportedDataType.INT.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataType.VARCHAR.name())) {
+            LogUtil.info(SupportedDataType.VARCHAR.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataType.TEXT.name())) {
+            LogUtil.info(SupportedDataType.TEXT.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataType.BOOLEAN.name())) {
+            LogUtil.info(SupportedDataType.BOOLEAN.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataType.DATE.name())) {
+            LogUtil.info(SupportedDataType.DATE.name() + SysMessages.DATATYPE_FOUND.getMessage());
+        } else if (columnDefinitionType.toUpperCase().equals(SupportedDataType.TIME.name())) {
+            LogUtil.info(SupportedDataType.TIME.name() + SysMessages.DATATYPE_FOUND.getMessage());
         }
         return new String[]{columnDefinitionTokens[0], columnDefinitionType};
     }
 
-    // id - 1 , name - 'Alice'
-//    public void addRow(String row) {
-//        if (columnExistsInTable(row)) {
-//            rows.add(parseRow(sql));
-//        }
-//    }
-
-//    public boolean columnExistsInTable(Row row) {
-//        boolean columnExists = false;
-//        for (String key : row.getValue().keySet()) { // Basically check if Column for newly added row exists in current Table
-//            if (!this.getColumnsNamesSet().contains(key)) {
-//                throw new IllegalArgumentException("Table " + this.name + " has no " + key + " column for " + row.getValue().get(key) + " value");
-//            }
-//            columnExists = true;
-//        }
-//        return columnExists;
-//    }
-
-//    public boolean dataTypeMatches(Row row) {
-//        boolean rowAndColumnDataTypesMatch = false;
-//        // get rows column name
-//        String columnNameOfRow = row.getValue().keySet().toString();
-//        // which corresponds with target column
-//
-//
-//        // get column data type
-//        // try to convert to target data type of column
-//        // on fail throw
-//        return false;
-//    }
-
-//    public Set<String> getColumnsNamesSet() {
-//        return this.columnsNames = columns.stream()
-//                .map(ColumnMetadata::getName)
-//                .collect(Collectors.toSet());
-//    }
 
     public String getName() {
         return name;
@@ -115,47 +78,65 @@ public class Table {
         this.name = name;
     }
 
-//    public List<ColumnMetadata> getColumns() {
-//        return columns;
-//    }
-
-//    public void setColumns(List<ColumnMetadata> columns) {
-//        this.columns = columns;
-//    }
-
-//    public List<Row> getRows() {
-//        return rows;
-//    }
-
-//    public void setRows(List<Row> rows) {
-//        this.rows = rows;
-//    }
-
-//    public Set<String> getColumnsNames() {
-//        return columnsNames;
-//    }
 
     public Column getColumnByName(String columnName) {
         return columns.get(columnName);
     }
 
 
-//    public void setColumnsNames(Set<String> columnsNames) {
-//        this.columnsNames = columnsNames;
-//    }
-
-//    public int getNumberOfRows() {
-//        return rows.size();
-//    }
-
-
-    public void addRow(Row row) {
-
-        // if you want to add row to a table you need to validate it against the columns that table has.
-        // for example if you want to add row " 23, mike, 28" you have to make sure columns "id, name, age" exists
-        // column has name and type it can hold - so name validation and type validation should take place
+    public void addRow(String SQL) {
+        ArrayList<String> contents = extractContentBetweenParentheses(SQL);
+        String[] columnList = contents.get(0).split(",");
+        String[] individualColumnValues = contents.get(1).split(",");
+        // 1 ensure column exists
+        for (int i = 0; i < columnList.length; i++) {
+            if (columns.containsKey(columnList[i])) {
+                insertValueIntoTable(individualColumnValues[i], columnList[i]);
+            } else {
+                System.out.println("No such column in table found"); // add err message to do
+            }
+        }
+        // 2 put row into list of rows
     }
 
+
+    public void insertValueIntoTable(String value, String columnName) {
+        // if target column is ok with value being passed then it adds. target column should provide
+        // associated class and then add this value boxing it to class
+        // if column type is int then only numbers, if string then only strings or alphanumerical
+//        columns.get(columnName).
+//        Object object = columns.get(columnName).getDataType().getAssociatedClass();
+        Class<?> targetClass = columns.get(columnName).getDataType().getAssociatedClass();
+        Object boxedValue;
+        if (targetClass == Integer.class) {
+            boxedValue = Integer.parseInt(value);
+        } else if (targetClass == String.class) {
+            boxedValue = value;
+        } else if (targetClass == Boolean.class) {
+            boxedValue = Boolean.parseBoolean(value);
+        } else {
+            throw new DataBoxingException(SysMessages.DATATYPE_PARSING_FAILED.getMessage() + targetClass);
+        }
+//        columns.get(columnName).getDataType().getAssociatedClass()
+//        System.out.println(object);
+//        if (object instanceof Integer) {
+//            try {
+//                obj = Integer.parseInt(str); // parse and auto-box
+//                System.out.println("Boxed successfully: " + obj);
+//            } catch (NumberFormatException e) {
+//                System.out.println("Invalid number: " + str);
+//            }
+
+        // To do insert this value into object that will carry it (Integer for int and so on)
+        System.out.println("Object to hold data:" + boxedValue.getClass());
+        Row row = new Row();
+        row.addValue(columnName, boxedValue);
+    }
+
+    public boolean columnExists() {
+
+        return true;
+    }
 
     public void addValueToColumn(String value, Column column) {
 
