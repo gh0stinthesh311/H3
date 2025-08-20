@@ -9,12 +9,13 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static io.github.gh0stinthesh311.utils.Formatter.wrapWithQuotes;
 import static io.github.gh0stinthesh311.utils.StringUtils.extractContentBetweenParentheses;
 
 public class Table {
     String name;
     Map<String, Column> columns; // name and column type
-    ArrayList<Row> rows;
+    ArrayList<Row> rows = new ArrayList<>();
 
     public Table(String name) {
         this.name = name;
@@ -24,25 +25,24 @@ public class Table {
     public void createColumns(String SQL, Table table) {
         String[] columnDefinitions = extractColumnDefinitions(SQL).split(",");
         for (String columnDefinition : columnDefinitions) {
-            LogUtil.info("Parsing column definition:" + columnDefinition);
+            LogUtil.info("Parsing column definition:" + wrapWithQuotes(columnDefinition));
             String[] parsedColumnDefinition = parseAndReturnColumnDefinition(columnDefinition);
             table.addColumn(parsedColumnDefinition[0], parsedColumnDefinition[1]);
         }
     }
 
     public void addColumn(String columnName, String columnType) {
-        LogUtil.info("Adding column:" + columnName + " to table " + this.name + ", type:" + columnType);
+        LogUtil.info("Adding column " + wrapWithQuotes(columnName) + " to table " + this.name + ", type:" + wrapWithQuotes(columnType));
         this.columns.put(columnName, new Column(columnType));
-        LogUtil.info("Table:" + this.getName() + " contains following " + this.columns.size() + " column(s):");
+        LogUtil.info("Table " + wrapWithQuotes(this.getName()) + " contains following " + this.columns.size() + " column(s)");
         columns.forEach((key, value) -> LogUtil.info(key + " " + value));
     }
 
     public String extractColumnDefinitions(String SQL) {
         String columnDefinitions = SQL.substring(SQL.indexOf("(") + 1, SQL.lastIndexOf(")")).trim();
-        LogUtil.info("Extracted column definitions:" + columnDefinitions);
+        LogUtil.info("Extracted column definitions " + wrapWithQuotes(columnDefinitions));
         return columnDefinitions;
     }
-
 
     public String[] parseAndReturnColumnDefinition(String columnDefinition) {
         String[] columnDefinitionTokens = columnDefinition.split(" ");
@@ -69,7 +69,6 @@ public class Table {
         return new String[]{columnDefinitionTokens[0], columnDefinitionType};
     }
 
-
     public String getName() {
         return name;
     }
@@ -78,27 +77,22 @@ public class Table {
         this.name = name;
     }
 
-
     public Column getColumnByName(String columnName) {
         return columns.get(columnName);
     }
-
 
     public void addRow(String SQL) {
         ArrayList<String> contents = extractContentBetweenParentheses(SQL);
         String[] columnList = contents.get(0).split(",");
         String[] individualColumnValues = contents.get(1).split(",");
-        // 1 ensure column exists
         for (int i = 0; i < columnList.length; i++) {
             if (columns.containsKey(columnList[i])) {
                 insertValueIntoTable(individualColumnValues[i], columnList[i]);
             } else {
-                System.out.println("No such column in table found"); // add err message to do
+                System.out.println("No column " + columnList[i] + " in table " + this.name + " found."); // add err message to do
             }
         }
-        // 2 put row into list of rows
     }
-
 
     public void insertValueIntoTable(String value, String columnName) {
         // if target column is ok with value being passed then it adds. target column should provide
@@ -128,13 +122,13 @@ public class Table {
 //            }
 
         // To do insert this value into object that will carry it (Integer for int and so on)
-        System.out.println("Object to hold data:" + boxedValue.getClass());
+        LogUtil.info("Object to hold data:" + boxedValue.getClass());
         Row row = new Row();
         row.addValue(columnName, boxedValue);
+        this.rows.add(row);
     }
 
     public boolean columnExists() {
-
         return true;
     }
 
@@ -147,6 +141,4 @@ public class Table {
         return "Table: " + name + " \ncolumns = " + columns;
 
     }
-
-
 }

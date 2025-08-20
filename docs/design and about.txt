@@ -1,4 +1,4 @@
-On lauch default db is created in Memory (which is sort of Heap). 
+On launch default db is created in Memory (which is sort of Heap). 
 
 
 no id column (you can either create one or not)

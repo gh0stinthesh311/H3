@@ -16,7 +16,6 @@ public class DataManipulationLanguageMaster implements SqlExecutor {
             // has columns that are being populated
             // but first and foremost the bracket problem needs to be solved
             // function like getValueBetweenBracketsNumber(1)
-
         } else if (sqlArray[0].equalsIgnoreCase(SQLKeywords.drop.getValue()) && sqlArray[1].equalsIgnoreCase(SQLKeywords.table.getValue())) {
             // Memory.getInstance().getCurrentDatabase().dropTable(sqlArray[2]);
         }

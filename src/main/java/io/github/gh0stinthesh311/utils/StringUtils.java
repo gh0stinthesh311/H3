@@ -11,7 +11,7 @@ public class StringUtils {
     }
 
     public static String normalize(String SQL) {
-        LogUtil.info("Initial statement:" + SQL);
+        LogUtil.info("Initial statement:" + Formatter.wrapWithQuotes(SQL));
         String[] trimmedSQL = SQL.trim() // Remove trailing spaces
                 .replaceAll("(/\\*(.|[\\r\\n])*?\\*/)|(--(.*|[\\r\\n]))\n", "") // Remove all sql comments
                 .replace("\n", "") // Remove newlines
@@ -55,7 +55,7 @@ public class StringUtils {
             stringBuilder.append(" ");
             stringBuilder.append(trimmedSQL[i]);
         }
-        LogUtil.info("Normalized statement:" + stringBuilder);
+        LogUtil.info("Normalized statement:" + Formatter.wrapWithQuotes(stringBuilder.toString()));
         return stringBuilder.toString();
     }
 

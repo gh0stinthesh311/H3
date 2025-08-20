@@ -24,6 +24,7 @@ public enum SQLKeywords {
     into("INTO"),
     set("SET"),
     database("DATABASE"),
+    asterisk("*"),
     table("TABLE");
 
     private String value;

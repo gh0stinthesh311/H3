@@ -12,7 +12,7 @@ public class Memory {
 
     private Memory() {
         Database defaultDatabase = new Database();
-        this.databases.put(defaultDatabase.getName(), defaultDatabase);
+        this.databases.put(defaultDatabase.getDBName(), defaultDatabase);
         this.currentDatabase = defaultDatabase;
     }
 

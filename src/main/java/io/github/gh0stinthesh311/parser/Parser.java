@@ -3,6 +3,7 @@ package io.github.gh0stinthesh311.parser;
 import io.github.gh0stinthesh311.constants.SQLKeywords;
 import io.github.gh0stinthesh311.constants.SysMessages;
 import io.github.gh0stinthesh311.handlers.*;
+import io.github.gh0stinthesh311.utils.Formatter;
 import io.github.gh0stinthesh311.utils.LogUtil;
 
 import static io.github.gh0stinthesh311.utils.StringUtils.normalize;
@@ -28,21 +29,23 @@ public class Parser implements ParsingSQL {
 
     @Override
     public void parse(String SQL) {
-        String[] statementChopped = SQL.split(";");
+        String normalizedSQL = normalize(SQL);
+        String[] statementChopped = normalizedSQL.split(";");
+
         if (statementChopped.length > 1) {
             LogUtil.info(SysMessages.MULTI_QUERY_STATEMENT.getMessage() + "Includes " + statementChopped.length + " statements.");
             for (int i = 0; i < statementChopped.length; i++) {
-                LogUtil.info("Executing statement from multiple query:" + statementChopped[i]);
-                execute(normalize(statementChopped[i]));
+                int j = i + 1; // human-readable counter for an output
+                LogUtil.info("Executing statement number " + j + " from multiple query:" + Formatter.wrapWithQuotes(statementChopped[i]));
+                delegateExecution(normalize(statementChopped[i]));
             }
         } else {
-            LogUtil.info("Executing single statement:" + SQL);
-            SQL = SQL.replaceAll(";$", "");
-            execute(normalize(SQL));
+            LogUtil.info("Executing single statement:" + Formatter.wrapWithQuotes(normalizedSQL));
+            delegateExecution(normalizedSQL);
         }
     }
 
-    public void execute(String SQL) {
+    public void delegateExecution(String SQL) {
         String[] SQL_StatementAsArray = SQL.split(" ");
         if (SQL_StatementAsArray[0].toUpperCase().equalsIgnoreCase(SQLKeywords.select.getValue())) {
             this.dataQueryLanguageMaster.execute(SQL);
@@ -65,7 +68,8 @@ public class Parser implements ParsingSQL {
                 || SQL_StatementAsArray[0].toUpperCase().equalsIgnoreCase(SQLKeywords.revoke.getValue())
         ) {
             this.dataControlLanguageMaster.execute(SQL);
+        } else {
+            LogUtil.warn("Not a sql statement");
         }
-
     }
 }
