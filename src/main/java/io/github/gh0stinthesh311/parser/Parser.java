@@ -40,7 +40,7 @@ public class Parser implements ParsingSQL {
                 delegateExecution(normalize(statementChopped[i]));
             }
         } else {
-            LogUtil.info("Executing single statement:" + Formatter.wrapWithQuotes(normalizedSQL));
+//            LogUtil.info("Executing single statement " + Formatter.wrapWithQuotes(normalizedSQL));
             delegateExecution(normalizedSQL);
         }
     }

@@ -9,7 +9,7 @@ public class DataManipulationLanguageTest {
     public void insertIntoTableTest() {
         Parser p = new Parser();
         p.parse(TestQueries.DML.CREATE_USER_TABLE);
-        p.parse("melect * from userbase");
+        p.parse("select * from userbase");
 //        p.parse(Queries.TestQueries.DML.INSERT_MANY_USERS);
 //        p.parse(Queries.TestQueries.DML.SELECT_ALL_USERS);
     }

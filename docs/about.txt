@@ -59,4 +59,6 @@ while table names are. Tables 'car' and 'Car' are deemed to be different.
 
 
 
+supports creating table without any column definition data.
+
 

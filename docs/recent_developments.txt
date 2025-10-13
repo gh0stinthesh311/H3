@@ -1,5 +1,0 @@
-Batch statement like
-"sql1 ; sql2 ;"
-for some reason is chopped incorrectly.
-That needs to be investigated and fixed. 
-

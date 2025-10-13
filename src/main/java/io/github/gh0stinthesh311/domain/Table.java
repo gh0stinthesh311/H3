@@ -3,6 +3,7 @@ package io.github.gh0stinthesh311.domain;
 import io.github.gh0stinthesh311.constants.SupportedDataType;
 import io.github.gh0stinthesh311.constants.SysMessages;
 import io.github.gh0stinthesh311.exceptions.DataBoxingException;
+import io.github.gh0stinthesh311.memory.Memory;
 import io.github.gh0stinthesh311.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -23,16 +24,24 @@ public class Table {
     }
 
     public void createColumns(String SQL, Table table) {
-        String[] columnDefinitions = extractColumnDefinitions(SQL).split(",");
-        for (String columnDefinition : columnDefinitions) {
-            LogUtil.info("Parsing column definition:" + wrapWithQuotes(columnDefinition));
-            String[] parsedColumnDefinition = parseAndReturnColumnDefinition(columnDefinition);
-            table.addColumn(parsedColumnDefinition[0], parsedColumnDefinition[1]);
+        // to do add validation for empty column definitions - "CREATE TABLE ninjas;" is invalid
+        LogUtil.info("Creating columns for " + wrapWithQuotes(table.getName()));
+        String extractedColumnDefinitions = extractColumnDefinitions(SQL);
+        if (extractedColumnDefinitions.isEmpty()) {
+            LogUtil.info("Column definitions are empty:" + wrapWithQuotes(extractedColumnDefinitions) + ". Define at least one column ");
+            Memory.getInstance().getCurrentDatabase().dropTable(table.getName());
+        } else {
+            String[] columnDefinitions = extractedColumnDefinitions.split(",");
+            for (String columnDefinition : columnDefinitions) {
+                LogUtil.info("Parsing column definition " + wrapWithQuotes(columnDefinition));
+                String[] parsedColumnDefinition = parseAndReturnColumnDefinition(columnDefinition);
+                table.addColumn(parsedColumnDefinition[0], parsedColumnDefinition[1]);
+            }
         }
     }
 
     public void addColumn(String columnName, String columnType) {
-        LogUtil.info("Adding column " + wrapWithQuotes(columnName) + " to table " + this.name + ", type:" + wrapWithQuotes(columnType));
+        LogUtil.info("Adding column " + wrapWithQuotes(columnName) + " to table " + wrapWithQuotes(this.name) + ", type " + wrapWithQuotes(columnType));
         this.columns.put(columnName, new Column(columnType));
         LogUtil.info("Table " + wrapWithQuotes(this.getName()) + " contains following " + this.columns.size() + " column(s)");
         columns.forEach((key, value) -> LogUtil.info(key + " " + value));
@@ -40,6 +49,9 @@ public class Table {
 
     public String extractColumnDefinitions(String SQL) {
         String columnDefinitions = SQL.substring(SQL.indexOf("(") + 1, SQL.lastIndexOf(")")).trim();
+//        if (columnDefinitions.isEmpty()) {
+//            LogUtil.info("Column definitions are empty:" + wrapWithQuotes(columnDefinitions));
+//        }
         LogUtil.info("Extracted column definitions " + wrapWithQuotes(columnDefinitions));
         return columnDefinitions;
     }
@@ -49,7 +61,7 @@ public class Table {
         String columnDefinitionType;
         if (columnDefinitionTokens[1].contains("(") || columnDefinitionTokens[1].contains(")")) {
             columnDefinitionType = columnDefinitionTokens[1].replaceAll("\\([^)]*\\)", "");
-            System.out.println("Data type parameter removed:" + columnDefinitionType);
+            System.out.println("Data type parameter removed from:" + wrapWithQuotes(columnDefinitionType));
         } else {
             columnDefinitionType = columnDefinitionTokens[1];
         }

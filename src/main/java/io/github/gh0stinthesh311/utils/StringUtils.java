@@ -11,7 +11,7 @@ public class StringUtils {
     }
 
     public static String normalize(String SQL) {
-        LogUtil.info("Initial statement:" + Formatter.wrapWithQuotes(SQL));
+        LogUtil.info("Initial statement " + Formatter.wrapWithQuotes(SQL));
         String[] trimmedSQL = SQL.trim() // Remove trailing spaces
                 .replaceAll("(/\\*(.|[\\r\\n])*?\\*/)|(--(.*|[\\r\\n]))\n", "") // Remove all sql comments
                 .replace("\n", "") // Remove newlines
@@ -55,19 +55,9 @@ public class StringUtils {
             stringBuilder.append(" ");
             stringBuilder.append(trimmedSQL[i]);
         }
-        LogUtil.info("Normalized statement:" + Formatter.wrapWithQuotes(stringBuilder.toString()));
+        LogUtil.info("Normalized statement " + Formatter.wrapWithQuotes(stringBuilder.toString()));
         return stringBuilder.toString();
     }
-
-
-    public void getColumnDefinitions() {
-    } // for creating columns
-
-    public void getColumnList() {
-    } // for inserting
-
-    public void getInsertPayload() {
-    } // list of values to insert
 
     public static ArrayList<String> extractContentBetweenParentheses(String text) {
         List<String> result = new ArrayList<>();

@@ -16,28 +16,36 @@ public class DataDefinitionLanguageTests {
     public void createTableTest() {
         Parser parser = new Parser();
         parser.parse(TestQueries.DDL.CREATE_TABLE_01);
-        parser.parse("drop table Employees1");
-        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(Queries.TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
         assertEquals(Memory.getInstance().getCurrentDatabase().getTableByName(Queries.TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME).getName(),
                 Queries.TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME);
         Assert.assertEquals(1, Memory.getInstance().getCurrentDatabase().getNumberOfTables());
     }
 
-//    @Test
-//    public void dropTableTest() {
-//        Parser parser = new Parser();
-//        parser.parse(Queries.TestQueries.DDL.CREATE_TABLE_01);
-//        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(Queries.TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
-//        parser.parse(Queries.TestQueries.DDL.DROP_TABLE_01);
-//        System.out.println(Memory.getInstance());
-//        assertEquals(Memory.getInstance().getCurrentDatabase().getTablesList().size(), 0);
-//    }
-//
-//    @Test
-//    public void createAndDropTableTest() {
-//        Parser parser = new Parser();
-//        parser.parse(Queries.TestQueries.DDL.CREATE_AND_DROP_TABLE_01);
-//        Assert.assertEquals(0, Memory.getInstance().getCurrentDatabase().getNumberOfTables());
-//    }
+    @Test
+    public void createDropTableTest() {
+        Parser parser = new Parser();
+        parser.parse(Queries.TestQueries.DDL.CREATE_TABLE_01);
+        assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(Queries.TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
+        parser.parse(Queries.TestQueries.DDL.DROP_TABLE_01);
+        assertEquals(Memory.getInstance().getCurrentDatabase().getTablesList().size(), 0);
+    }
 
+    @Test
+    public void dropTableTest() {
+        Parser parser = new Parser();
+        parser.parse("drop table ninjas");
+    }
+
+    @Test
+    public void createNonUniqueTableTest() {
+        Parser parser = new Parser();
+        parser.parse("create table ninjas () ;");
+//        parser.parse("create table ninjas");
+//        parser.parse("create table ninjas");
+    }
 }
+
+
+
+
+

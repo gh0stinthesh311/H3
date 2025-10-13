@@ -45,18 +45,21 @@ public class Database {
         } else
             LogUtil.info("Adding table " + wrapWithQuotes(table.getName()) + " to database " + wrapWithQuotes(this.getDBName()));
         this.tables.put(table.getName(), table);
-        LogUtil.info(wrapWithQuotes(this.getDBName()) + " database contains following table(s):" +
+        LogUtil.info(wrapWithQuotes(this.getDBName()) + " database contains following table(s) " +
                 wrapWithQuotes(String.join(",", this.tables.keySet())));
     }
 
     public void dropTable(String name) {
-        LogUtil.info("Dropping table:" + name + " from database " + this.getDBName());
         if (tables.containsKey(name)) {
-
+            LogUtil.info("Dropping table " + wrapWithQuotes(name) + " from database " + wrapWithQuotes(this.getDBName()));
             this.tables.remove(name);
         } else
-            LogUtil.error("No such table: " + wrapWithQuotes(name) + " in " + wrapWithQuotes(this.getDBName()));
+            LogUtil.error("No " + wrapWithQuotes(name) + " table found in " + wrapWithQuotes(this.getDBName()));
     }
+
+
+    // to do also add method that can accept table and remove based on object passed , not only by name
+
 
     public void createTable(String SQL, String[] sqlAsArray) {
         Table table = new Table(sqlAsArray[2]);
