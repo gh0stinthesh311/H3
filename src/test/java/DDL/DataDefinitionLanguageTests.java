@@ -27,7 +27,7 @@ public class DataDefinitionLanguageTests {
         parser.parse(Queries.TestQueries.DDL.CREATE_TABLE_01);
         assertNotNull(Memory.getInstance().getCurrentDatabase().getTableByName(Queries.TestQueries.DDL.CREATE_TABLE_01_TABLE_NAME).getName());
         parser.parse(Queries.TestQueries.DDL.DROP_TABLE_01);
-        assertEquals(Memory.getInstance().getCurrentDatabase().getTablesList().size(), 0);
+        assertEquals(0, Memory.getInstance().getCurrentDatabase().getTablesList().size());
     }
 
     @Test
@@ -36,10 +36,11 @@ public class DataDefinitionLanguageTests {
         parser.parse("drop table ninjas");
     }
 
-    @Test
+    @Test // this needs to be done first, to bracket validation
     public void createNonUniqueTableTest() {
         Parser parser = new Parser();
-        parser.parse("create table ninjas () ;");
+        parser.parse("create table ninjas ;");
+        assertEquals(0, Memory.getInstance().getCurrentDatabase().getTablesList().size());
 //        parser.parse("create table ninjas");
 //        parser.parse("create table ninjas");
     }

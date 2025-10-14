@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static io.github.gh0stinthesh311.utils.Formatter.wrapWithQuotes;
+
 public class StringUtils {
 
     private StringUtils() {
@@ -67,5 +69,17 @@ public class StringUtils {
             result.add(matcher.group(1));
         }
         return new ArrayList<>(result);
+    }
+
+    // replace this with bracket validator
+    public static boolean validateParentheses(String text) {
+        boolean validParenthesesFound = false;
+        int start = text.indexOf("(");
+        int end = text.indexOf(")", start);
+        if (start != -1 && end != -1 && end > start) {
+            validParenthesesFound = true;
+        }
+        LogUtil.info("Parentheses validation found to be " + validParenthesesFound);
+        return validParenthesesFound;
     }
 }
