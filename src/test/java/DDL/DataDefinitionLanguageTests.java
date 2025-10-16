@@ -39,7 +39,7 @@ public class DataDefinitionLanguageTests {
     @Test // this needs to be done first, to bracket validation
     public void createNonUniqueTableTest() {
         Parser parser = new Parser();
-        parser.parse("create table ninjas ;");
+        parser.parse("create table ninjas ([]) ;");
         assertEquals(0, Memory.getInstance().getCurrentDatabase().getTablesList().size());
 //        parser.parse("create table ninjas");
 //        parser.parse("create table ninjas");

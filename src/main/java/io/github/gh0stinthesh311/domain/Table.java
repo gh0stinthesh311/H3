@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static io.github.gh0stinthesh311.utils.BracketBalanceValidator.validateBracketBalance;
 import static io.github.gh0stinthesh311.utils.Formatter.wrapWithQuotes;
 import static io.github.gh0stinthesh311.utils.StringUtils.extractContentBetweenParentheses;
-import static io.github.gh0stinthesh311.utils.StringUtils.validateParentheses;
 
 public class Table {
     String name;
@@ -26,14 +26,19 @@ public class Table {
 
     public void createColumns(String SQL, Table table) {
         // to do add validation for empty column definitions - "CREATE TABLE ninjas;" is invalid
-        LogUtil.info("Creating columns for " + wrapWithQuotes(table.getName()));
+        LogUtil.info("Creating columns for table " + wrapWithQuotes(table.getName()));
+//        if (validateBracketBalance(SQL)) {
+//            System.out.println("BALANCED");
+//        } else {
+//            System.out.println("UN BALANCED");
+//        }
         String extractedColumnDefinitions = extractColumnDefinitions(SQL);
-        if (validateParentheses(SQL) && !extractedColumnDefinitions.isEmpty()) {
+        if (validateBracketBalance(SQL) && !extractedColumnDefinitions.isEmpty()) {
 //            String extractedColumnDefinitions = extractColumnDefinitions(SQL);
 //            if (extractedColumnDefinitions.isEmpty()) {
             LogUtil.info("Column definitions are empty or not provided:" + wrapWithQuotes(extractedColumnDefinitions) + ". Define at least one column.");
             Memory.getInstance().getCurrentDatabase().dropTable(table.getName());
-            } else {
+        } else {
             String[] columnDefinitions = extractedColumnDefinitions.split(",");
             for (String columnDefinition : columnDefinitions) {
                 LogUtil.info("Parsing column definition " + wrapWithQuotes(columnDefinition));
@@ -56,7 +61,7 @@ public class Table {
 //        if (columnDefinitions.isEmpty()) {
 //            LogUtil.info("Column definitions are empty:" + wrapWithQuotes(columnDefinitions));
 //        }
-        LogUtil.info("Extracted column definitions " + wrapWithQuotes(columnDefinitions));
+        LogUtil.info("Extracted column definition(s) " + wrapWithQuotes(columnDefinitions));
         return columnDefinitions;
     }
 

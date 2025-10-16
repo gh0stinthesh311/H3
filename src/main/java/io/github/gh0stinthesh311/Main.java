@@ -5,7 +5,8 @@ public class Main {
     public static void main(String[] args) {
 
 
-
+String some = "[]";
+        System.out.println(some.isEmpty());
     }
 }
 

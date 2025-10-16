@@ -72,14 +72,14 @@ public class StringUtils {
     }
 
     // replace this with bracket validator
-    public static boolean validateParentheses(String text) {
-        boolean validParenthesesFound = false;
-        int start = text.indexOf("(");
-        int end = text.indexOf(")", start);
-        if (start != -1 && end != -1 && end > start) {
-            validParenthesesFound = true;
-        }
-        LogUtil.info("Parentheses validation found to be " + validParenthesesFound);
-        return validParenthesesFound;
-    }
+//    public static boolean validateParentheses(String text) {
+//        boolean validParenthesesFound = false;
+//        int start = text.indexOf("(");
+//        int end = text.indexOf(")", start);
+//        if (start != -1 && end != -1 && end > start) {
+//            validParenthesesFound = true;
+//        }
+//        LogUtil.info("Parentheses validation found to be " + validParenthesesFound);
+//        return validParenthesesFound;
+//    }
 }
