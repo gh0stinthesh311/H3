@@ -6,7 +6,6 @@ public class BracketBalanceValidator {
     // bracket balancing problem
     public static boolean validateBracketBalance(String expression) {
         ArrayDeque<Character> s = new ArrayDeque<>();
-
         for (char bracket : expression.toCharArray()) {
             switch (bracket) {
                 case '{':

@@ -31,7 +31,6 @@ public class Parser implements ParsingSQL {
     public void parse(String SQL) {
         String normalizedSQL = normalize(SQL);
         String[] statementChopped = normalizedSQL.split(";");
-
         if (statementChopped.length > 1) {
             LogUtil.info(SysMessages.MULTI_QUERY_STATEMENT.getMessage() + "Includes " + statementChopped.length + " statements.");
             for (int i = 0; i < statementChopped.length; i++) {

@@ -26,27 +26,23 @@ public class Database {
         this.name = name;
     }
 
-    public String getDBName() {
-        return name;
-    }
-
-    public void setDBName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Database " + this.getDBName() + " includes tables " + tables;
-    }
-
-    public void addTable(Table table) {
+    public void createTable(String SQL, String[] sqlAsArray) {
+        Table table = new Table(sqlAsArray[2]);
         if (this.tables.keySet().contains(table.getName())) {
-            LogUtil.info("Table " + table.getName() + " already exists in " + this.getDBName());
-        } else
-            LogUtil.info("Adding table " + wrapWithQuotes(table.getName()) + " to database " + wrapWithQuotes(this.getDBName()));
-        this.tables.put(table.getName(), table);
-        LogUtil.info(wrapWithQuotes(this.getDBName()) + " database contains following table(s) " +
-                wrapWithQuotes(String.join(",", this.tables.keySet())));
+            LogUtil.info("Table " + table.getName() + " already exists in " + Memory.getInstance().getCurrentDatabase().getDBName());
+        } else {
+            LogUtil.info("Adding table " + wrapWithQuotes(table.getName()) + " to database " + wrapWithQuotes(Memory.getInstance().getCurrentDatabase().getDBName()));
+            Memory.getInstance().getCurrentDatabase().getTables().put(table.getName(), table);
+            table.createColumns(SQL, table);
+        }
+    }
+
+    public Map<String, Table> getTables() {
+        return tables;
+    }
+
+    public void setTables(Map<String, Table> tables) {
+        this.tables = tables;
     }
 
     public void dropTable(String name) {
@@ -61,13 +57,6 @@ public class Database {
     // to do also add method that can accept table and remove based on object passed , not only by name
 
 
-    public void createTable(String SQL, String[] sqlAsArray) {
-        Table table = new Table(sqlAsArray[2]);
-        LogUtil.info("Creating table " + wrapWithQuotes(table.getName()));
-        Memory.getInstance().getCurrentDatabase().addTable(table);
-        table.createColumns(SQL, table);
-    }
-
     public int getNumberOfTables() {
         return this.tables.size();
     }
@@ -81,5 +70,18 @@ public class Database {
         if (this.tables.containsKey(name)) {
             return tables.get(name);
         } else return null;
+    }
+
+    public String getDBName() {
+        return name;
+    }
+
+    public void setDBName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Database " + this.getDBName() + " includes tables " + tables;
     }
 }

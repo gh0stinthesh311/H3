@@ -1,12 +1,9 @@
 package io.github.gh0stinthesh311.memory;
 
 import io.github.gh0stinthesh311.domain.Database;
-import io.github.gh0stinthesh311.utils.LogUtil;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static io.github.gh0stinthesh311.utils.Formatter.wrapWithQuotes;
 
 public class Memory {
     private Map<String, Database> databases = new HashMap<>();
