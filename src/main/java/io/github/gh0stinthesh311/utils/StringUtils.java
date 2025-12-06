@@ -1,5 +1,6 @@
 package io.github.gh0stinthesh311.utils;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,35 +21,9 @@ public class StringUtils {
                 .replaceAll("\\s+\\)", ")")  // Remove spaces before ")"
                 .replaceAll(",\\s+", ",")   // Remove spaces after ","
                 .replaceAll(" +", " ")      // Collapse multiple spaces
-//                .replaceAll(";$", "") // remove ";" at the end
+                .replaceAll(";$", "") // remove ";" at the end
                 .split(" ");
         // to do need method to join string[] to one string
-
-
-        // SQL key words normalize
-//        String[] keyWords = getSQLKeyWords();
-//        for (int i = 0; i < trimmedSQL.length; i++) {
-//            System.out.println("Checking:" + trimmedSQL[i]);
-//            for (int j = 0; j < keyWords.length; j++) {
-//                if (trimmedSQL[i].equalsIgnoreCase(keyWords[j])) {
-//                    trimmedSQL[i] = keyWords[j];
-//                    System.out.println("replacing " + trimmedSQL[i] + " with " + keyWords[j]);
-//                }
-//            }
-//        }
-
-        // data type keywords normalize
-//        String[] dataTypes = getSupportedDataTypes();
-//        System.out.println(Arrays.toString(dataTypes));
-//        for (int k = 0; k < trimmedSQL.length; k++) {
-//            for (int l = 0; l < dataTypes.length; l++) {
-//                if (trimmedSQL[k].equalsIgnoreCase(dataTypes[l])) {
-//                    trimmedSQL[k] = dataTypes[l];
-//                    System.out.println("replacing " + trimmedSQL[k] + " with " + dataTypes[l]); // remove this
-//                }
-//            }
-//        }
-
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(trimmedSQL[0]); // this is because first one has no space to begin with.
         for (int i = 1; i < trimmedSQL.length; i++) {
@@ -84,4 +59,30 @@ public class StringUtils {
             return false;
         }
     }
+
+    public static boolean validateBracketBalance(String expression) {
+        ArrayDeque<Character> s = new ArrayDeque<>();
+        for (char bracket : expression.toCharArray()) {
+            switch (bracket) {
+                case '{':
+                    s.push('}');
+                    break;
+                case '(':
+                    s.push(')');
+                    break;
+                case '[':
+                    s.push(']');
+                    break;
+                case '}':
+                case ')':
+                case ']':
+                    if (s.isEmpty() || bracket != s.pop()) return false;
+                    break;
+                default:
+            }
+        }
+        return s.isEmpty();
+    }
+
+
 }

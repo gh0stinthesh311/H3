@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Row {
-    /*  This means that Row can have values (Name → Value) such as:
+    /*  This means that Row can have values (Column name → Value) such as:
       Row can not have two values for "id" or any other column name
       id = 1
       Make = Toyota

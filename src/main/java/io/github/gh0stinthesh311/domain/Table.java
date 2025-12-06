@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import static io.github.gh0stinthesh311.utils.BracketBalanceValidator.validateBracketBalance;
 import static io.github.gh0stinthesh311.utils.Formatter.wrapWithQuotes;
 import static io.github.gh0stinthesh311.utils.StringUtils.extractContentBetweenParentheses;
 import static io.github.gh0stinthesh311.utils.StringUtils.validateNonEmptyContentBetweenParentheses;
@@ -26,6 +25,9 @@ public class Table {
         this.columns = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     }
 
+    public ArrayList<Row> getRows() {
+        return rows;
+    }
 
     // remake this whole bullshit to do
     public void createColumns(String SQL, Table table) {

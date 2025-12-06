@@ -1,23 +1,23 @@
 package io.github.gh0stinthesh311.handlers;
 
-import io.github.gh0stinthesh311.constants.SQLKeywords;
+import io.github.gh0stinthesh311.constants.Keywords;
 import io.github.gh0stinthesh311.memory.Memory;
 
 public class DataDefinitionLanguageMaster implements SqlExecutor {
     @Override
     public void execute(String SQL) {
         String[] sqlAsArray = SQL.split(" ");
-        if (sqlAsArray[0].equalsIgnoreCase(SQLKeywords.create.getValue())
-                && sqlAsArray[1].equalsIgnoreCase(SQLKeywords.table.getValue())) {
+        if (sqlAsArray[0].equalsIgnoreCase(Keywords.create.getValue())
+                && sqlAsArray[1].equalsIgnoreCase(Keywords.table.getValue())) {
             Memory.getInstance().getCurrentDatabase().createTable(SQL, sqlAsArray);
-        } else if (sqlAsArray[0].equalsIgnoreCase(SQLKeywords.drop.getValue())
-                && sqlAsArray[1].equalsIgnoreCase(SQLKeywords.table.getValue())) {
+        } else if (sqlAsArray[0].equalsIgnoreCase(Keywords.drop.getValue())
+                && sqlAsArray[1].equalsIgnoreCase(Keywords.table.getValue())) {
             Memory.getInstance().getCurrentDatabase().dropTable(sqlAsArray[2]);
-        } else if (sqlAsArray[0].equalsIgnoreCase(SQLKeywords.create.getValue())
-                && sqlAsArray[1].equalsIgnoreCase(SQLKeywords.database.getValue())) {
+        } else if (sqlAsArray[0].equalsIgnoreCase(Keywords.create.getValue())
+                && sqlAsArray[1].equalsIgnoreCase(Keywords.database.getValue())) {
             Memory.getInstance().addDatabase(sqlAsArray[2]);
-        } else if (sqlAsArray[0].equalsIgnoreCase(SQLKeywords.drop.getValue())
-                && sqlAsArray[1].equalsIgnoreCase(SQLKeywords.database.getValue())) {
+        } else if (sqlAsArray[0].equalsIgnoreCase(Keywords.drop.getValue())
+                && sqlAsArray[1].equalsIgnoreCase(Keywords.database.getValue())) {
             Memory.getInstance().dropDatabase(sqlAsArray[2]);
         }
     }

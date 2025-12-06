@@ -66,10 +66,12 @@ public class Database {
     }
 
     public Table getTableByName(String name) {
-        LogUtil.info("Table " + wrapWithQuotes(name) + " selected");
         if (this.tables.containsKey(name)) {
+            LogUtil.info("Table " + wrapWithQuotes(name) + " selected");
             return tables.get(name);
-        } else return null;
+        } else
+            LogUtil.info("Table " + wrapWithQuotes(name) + " does not exist in " + wrapWithQuotes(Memory.getInstance().getCurrentDatabase().getDBName()));
+        return null;
     }
 
     public String getDBName() {

@@ -1,7 +1,6 @@
 package io.github.gh0stinthesh311.constants;
 
-public enum SQLKeywords {
-    //to do add all keywords
+public enum Keywords {
     select("SELECT"),
     insert("INSERT"),
     update("UPDATE"),
@@ -29,7 +28,7 @@ public enum SQLKeywords {
 
     private String value;
 
-    SQLKeywords(String value) {
+    Keywords(String value) {
         this.value = value;
     }
 
@@ -42,9 +41,9 @@ public enum SQLKeywords {
     }
 
     public static String[] getSQLKeyWords() {
-        String[] keywords = new String[SQLKeywords.values().length];
+        String[] keywords = new String[Keywords.values().length];
         int i = 0;
-        for (SQLKeywords keyword : SQLKeywords.values()) {
+        for (Keywords keyword : Keywords.values()) {
             keywords[i++] = keyword.getValue();
         }
         return keywords;
