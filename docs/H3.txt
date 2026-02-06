@@ -72,14 +72,14 @@ Data Query Language (DQL):
       * SELECT: For retrieving data.
       * Supports filters (WHERE), sorting (ORDER BY), aggregation (GROUP BY, HAVING), and joins.
       * Example: SELECT name FROM users WHERE age > 30 ORDER BY name;
-Data Manipulation Language (DML):
+Data Manipulation Language (DataManipulationLanguage):
       * INSERT: To add new rows to a table.
       * Example: INSERT INTO users (id, name, age) VALUES (1, 'Alice', 25);
       * UPDATE: To modify existing rows.
       * Example: UPDATE users SET age = 26 WHERE id = 1;
       * DELETE: To delete rows.
       * Example: DELETE FROM users WHERE id = 1;
-Data Definition Language (DDL):
+Data Definition Language (DataDefinitionLanguage):
       * CREATE: To create tables, indexes, or databases.
       * Example: CREATE TABLE users (id INT PRIMARY KEY, name VARCHAR(255), age INT);
       * ALTER: To modify the structure of a table.

@@ -9,32 +9,26 @@ import java.util.Arrays;
 import static io.github.gh0stinthesh311.constants.SupportedDataType.getSupportedDataTypes;
 
 public class Column {
-    private SupportedDataType dataType;
+    private String name;
+    private Class<?> dataWrapper;
 
-    public Column(String dataType) {
+    public Column(String name, String dataType) {
+        this.name = name;
         if (!validateType(dataType)) {
             throw new UnsupportedDataTypeException(dataType + SysMessages.DATATYPE_NOT_FOUND.getMessage());
         } else if (dataType.toUpperCase().equals(SupportedDataType.INT.toString())) {
-            this.dataType = SupportedDataType.INT;
+            this.dataWrapper = SupportedDataType.INT.getAssociatedClass();
         } else if (dataType.toUpperCase().equals(SupportedDataType.VARCHAR.toString())) {
-            this.dataType = SupportedDataType.VARCHAR;
+            this.dataWrapper = SupportedDataType.VARCHAR.getAssociatedClass();
         } else if (dataType.toUpperCase().equals(SupportedDataType.TEXT.toString())) {
-            this.dataType = SupportedDataType.TEXT;
+            this.dataWrapper = SupportedDataType.TEXT.getAssociatedClass();
         } else if (dataType.toUpperCase().equals(SupportedDataType.BOOLEAN.toString())) {
-            this.dataType = SupportedDataType.BOOLEAN;
+            this.dataWrapper = SupportedDataType.BOOLEAN.getAssociatedClass();
         } else if (dataType.toUpperCase().equals(SupportedDataType.DATE.toString())) {
-            this.dataType = SupportedDataType.DATE;
+            this.dataWrapper = SupportedDataType.DATE.getAssociatedClass();
         } else if (dataType.toUpperCase().equals(SupportedDataType.TIME.toString())) {
-            this.dataType = SupportedDataType.TIME;
+            this.dataWrapper = SupportedDataType.TIME.getAssociatedClass();
         }
-    }
-
-    public SupportedDataType getDataType() {
-        return dataType;
-    }
-
-    public void setDataType(SupportedDataType dataType) {
-        this.dataType = dataType;
     }
 
     public boolean validateType(String dataType) {
@@ -43,6 +37,6 @@ public class Column {
 
     @Override
     public String toString() {
-        return dataType.toString();
+        return dataWrapper.toString();
     }
 }

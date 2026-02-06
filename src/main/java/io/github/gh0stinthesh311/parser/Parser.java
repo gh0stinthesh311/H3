@@ -73,7 +73,8 @@ public class Parser implements ParsingSQL {
                 || SQL_StatementAsArray[0].toUpperCase().equalsIgnoreCase(Keywords.drop.getValue()) // works
         ) {
             this.dataDefinitionLanguageMaster.execute(SQL);
-        } else if (SQL_StatementAsArray[0].toUpperCase().equalsIgnoreCase(Keywords.insert.getValue()) // works
+        } else if (
+                SQL_StatementAsArray[0].toUpperCase().equalsIgnoreCase(Keywords.insert.getValue())
                 || SQL_StatementAsArray[0].toUpperCase().equalsIgnoreCase(Keywords.update.getValue())
                 || SQL_StatementAsArray[0].toUpperCase().equalsIgnoreCase(Keywords.delete.getValue())
         ) {

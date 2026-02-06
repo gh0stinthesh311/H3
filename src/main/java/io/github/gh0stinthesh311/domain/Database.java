@@ -26,7 +26,8 @@ public class Database {
         this.name = name;
     }
 
-    public void createTable(String SQL, String[] sqlAsArray) {
+    public void createTable(String SQL) {
+        String[] sqlAsArray = SQL.split(" ");
         Table table = new Table(sqlAsArray[2]);
         if (this.tables.keySet().contains(table.getName())) {
             LogUtil.info("Table " + table.getName() + " already exists in " + Memory.getInstance().getCurrentDatabase().getDBName());
@@ -53,9 +54,7 @@ public class Database {
             LogUtil.error("No " + wrapWithQuotes(name) + " table found in " + wrapWithQuotes(this.getDBName()));
     }
 
-
     // to do also add method that can accept table and remove based on object passed , not only by name
-
 
     public int getNumberOfTables() {
         return this.tables.size();

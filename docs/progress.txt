@@ -1,0 +1,2 @@
+fix number of rows bug!!!
+Check if column exists before row gets added to it.
